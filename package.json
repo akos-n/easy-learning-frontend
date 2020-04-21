@@ -14,6 +14,7 @@
     "sass": "^1.26.3",
     "uuid": "latest",
     "history": "^4.10.1",
+    "clsx": "^1.1.0",
     "react-router-dom": "^5.1.2"
   },
   "scripts": {
@@ -38,6 +39,5 @@
     ]
   },
   "devDependencies": {
-    "clsx": "^1.1.0"
   }
 }
