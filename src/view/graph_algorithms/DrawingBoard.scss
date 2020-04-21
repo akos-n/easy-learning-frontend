@@ -1,0 +1,41 @@
+div.drawing-board {
+  position: relative;
+  font-family: Arial, cursive;
+  width: 100%;
+}
+
+div.drawing-board canvas {
+  background: #D3D3D3;
+  border: 3px solid black;
+  border-radius: 10px;
+  font-family: Arial, cursive;
+}
+
+div.drawing-board label {
+  position: relative;
+  top: -50px;
+  left: 10px;
+}
+div.drawing-board input[type="number"] {
+  position: relative;
+  top: -50px;
+  left: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  outline: 0;
+  padding: 10px;
+  width: 100px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: #F5F5F5;
+  color:#8a97a0;
+  -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  margin-bottom: 30px;
+}
+
+div.drawing-board-content input[type="number"]:focus {
+  background: #d2d9dd;
+}

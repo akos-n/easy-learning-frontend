@@ -1,0 +1,137 @@
+
+div.graph-form {
+  text-align: center;
+  width: 350px;
+  height: 400px;
+  min-width: 250px;
+  font-size: 1.2em;
+  padding: 10px;
+  background-color: #D3D3D3;
+  -webkit-box-shadow: 0 5px 0 rgba(255,255,255,0.03) inset;
+  border: 3px solid black;
+  border-radius: 10px;
+  font-family: Arial, cursive;
+}
+
+div.graph-form fieldset{
+  border: none;
+}
+
+div.graph-form input[type="number"],
+div.graph-form select {
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  outline: 0;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: #F5F5F5;
+  color:#8a97a0;
+  -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  margin-bottom: 30px;
+}
+div.graph-form input[type="number"]:focus,
+div.graph-form select:focus{
+  background: #d2d9dd;
+}
+
+div.graph-form select{
+  -webkit-appearance: menulist-button;
+  height:40px;
+}
+
+div.graph-form input[type="button"]
+{
+  position: relative;
+  display: block;
+  padding: 19px 39px 18px 39px;
+  color: #F5F5F5;
+  background: #008B8B;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  width: 100%;
+  border: 1px solid gray;
+  border-radius: 10px;
+  top: 150px;
+}
+
+div.graph-form input[type="button"]:hover
+{
+  background: #808080;
+}
+
+div.graph-form label.checkbox-label {
+  font-family: Arial, cursive;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+/* The switch - the box around the slider */
+div.graph-form label.checkbox-label span.slider{
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  width: 40px;
+  height: 24px;
+}
+
+/* Hide default HTML checkbox */
+div.graph-form label.checkbox-label input[type="checkbox"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+div.graph-form label.checkbox-label span.slider span.circle {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #808080;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+div.graph-form label.checkbox-label span.slider span.circle:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+div.graph-form label.checkbox-label input:checked + span.slider span.circle {
+  background-color: #008B8B;
+}
+
+div.graph-form label.checkbox-label input:focus + span.slider span.circle {
+  box-shadow: 0 0 1px #008B8B;
+}
+
+div.graph-form label.checkbox-label input:checked + span.slider span.circle:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+/* Rounded sliders */
+div.graph-form label.checkbox-label span.slider span.circle {
+  border-radius: 34px;
+}
+
+div.graph-form label.checkbox-label span.slider span.circle:before {
+  border-radius: 50%;
+}

@@ -1,0 +1,47 @@
+div.graph-play-algorithm {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: inline-block;
+}
+
+div.graph-play-algorithm div.graph-play-algorithm-drawing {
+  float: left;
+  position: relative;
+  width: calc(100% - 800px);
+  min-width: 500px;
+  max-width: calc(100% - calc(2*calc(50% - 450px)) - 7.5px);
+  margin-right: 25px;
+}
+
+div.graph-play-algorithm div.graph-play-algorithm-table {
+  overflow: auto;
+  width: calc(100% - min(max(500px, calc(100% - 800px)), calc(100% - calc(2*calc(50% - 450px)) - 7.5px)) - 71px);
+  max-width: calc(100% - calc(2*calc(50% - 450px)) - 7.5px);
+  height: 400px;
+  padding: 0 20px 20px 20px;
+  position: relative;
+  background-color: #D3D3D3;
+  float: left;
+  border: 3px solid black;
+  border-radius: 10px;
+}
+
+div.graph-play-algorithm div.graph-play-algorithm-description {
+  padding: 0 20px 20px 20px;
+  min-width: 200px;
+  max-width: 100%;
+  float: left;
+  background-color: #D3D3D3;
+  border: 3px solid black;
+  border-radius: 10px;
+}
+
+div.graph-play-algorithm div.graph-play-algorithm-form {
+  float: left;
+  position: relative;
+  display: flex;
+  margin: 5px calc(50% - 235px);
+}
+
+/*# sourceMappingURL=GraphPlayAlgorithm.css.map */

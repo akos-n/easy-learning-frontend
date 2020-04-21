@@ -1,0 +1,34 @@
+div.back-to-create-button {
+  height: 40px;
+  max-width: 200px;
+  font-size: 1.2em;
+  padding: 3px 1px;
+  background-color: #D3D3D3;
+  border: 3px solid black;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 5px 0 rgba(255, 255, 255, 0.03) inset;
+  font-family: Arial, cursive;
+  display: flex;
+  float: right;
+}
+
+#graph-content-back-button-to-create-graph {
+  position: relative;
+  margin: 0 10px;
+  display: block;
+  color: #F5F5F5;
+  background: #008B8B;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  width: 200px;
+  float: left;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+graph-content-back-button-to-create-graph:hover {
+  background: #808080;
+}
+
+/*# sourceMappingURL=GraphContent.css.map */

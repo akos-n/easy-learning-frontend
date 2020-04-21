@@ -1,0 +1,27 @@
+div.algorithm-table {
+  height: calc(100% - 20px);
+  margin: 10px 0;
+}
+table {
+  font-family: Arial, cursive;
+  border: 3px solid black;
+  text-align: center;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+div.algorithm-table th, div.algorithm-table td {
+  position: relative;
+  border: 1px solid black;
+  float: bottom;
+  height: 2%;
+  padding: 3px;
+  min-width: 35px;
+}
+
+div.algorithm-table th {
+  background-color: #000000;
+  opacity: 0.95;
+  color: #D3D3D3;
+  border: 2px solid #D3D3D3;
+}
