@@ -17,7 +17,7 @@ div.graph-play-algorithm div.graph-play-algorithm-drawing{
 
 div.graph-play-algorithm div.graph-play-algorithm-table{
   overflow: auto;
-  $width: calc(100% - min(max(500px, calc(100% - 800px)), calc(100% - calc(2*calc(50% - 450px)) - 7.5px)) - 71px);
+  $width: calc(100% - min(max(500px, 100% - 800px), 892.5px) - 71px);
   width: $width;
   max-width: calc(100% - calc(2*calc(50% - 450px)) - 7.5px);
   height: 400px;
