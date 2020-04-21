@@ -11,16 +11,16 @@ div.drawing-board canvas {
   font-family: Arial, cursive;
 }
 
-div.drawing-board label {
+div.drawing-board div.drawing-board-weight-of-edge {
   position: relative;
   top: -50px;
   left: 10px;
+  float: left;
+  display: inline-block;
+  height: 0px;
 }
 
-div.drawing-board input[type=number] {
-  position: relative;
-  top: -50px;
-  left: 10px;
+div.drawing-board div.drawing-board-weight-of-edge input[type=number] {
   border: none;
   border-radius: 4px;
   font-size: 15px;
@@ -34,7 +34,7 @@ div.drawing-board input[type=number] {
   color: #8a97a0;
   -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
-  margin-bottom: 30px;
+  margin-left: 10px;
 }
 
 div.drawing-board-content input[type=number]:focus {

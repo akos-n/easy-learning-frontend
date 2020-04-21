@@ -58,7 +58,9 @@ class DrawingBoard extends GraphBaseDrawingBoard {
             this.props.handleOnKeydown(e.nativeEvent);
           }}
         />
-        {this.buildSelectedEdgeWeightInput()}
+        <div className="drawing-board-weight-of-edge">
+          {this.buildSelectedEdgeWeightInput()}
+        </div>
       </div>
     );
   }
