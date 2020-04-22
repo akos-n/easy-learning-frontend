@@ -13,6 +13,14 @@ div.graph-form {
   font-family: Arial, cursive;
 }
 
+@media only screen and (max-width: 768px) {
+  div.graph-form {
+    min-width: 100%;
+    margin: auto;
+    padding: 0;
+  }
+}
+
 div.graph-form fieldset{
   border: none;
 }

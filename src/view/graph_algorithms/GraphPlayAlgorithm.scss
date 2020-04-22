@@ -6,13 +6,22 @@ div.graph-play-algorithm {
   display: inline-block;
 }
 
-div.graph-play-algorithm div.graph-play-algorithm-drawing{
+div.graph-play-algorithm div.graph-play-algorithm-drawing {
   float: left;
   position: relative;
   width: calc(100% - 800px);
   min-width: 500px;
   max-width: calc(100% - calc(2*calc(50% - 450px)) - 7.5px);
   margin-right: 25px;
+}
+
+@media only screen and (max-width: 768px) {
+  div.graph-play-algorithm div.graph-play-algorithm-drawing {
+    display: block;
+    width: 98%;
+    min-width: 98%;
+    margin: 0;
+  }
 }
 
 div.graph-play-algorithm div.graph-play-algorithm-table{
@@ -29,6 +38,17 @@ div.graph-play-algorithm div.graph-play-algorithm-table{
   border-radius: 10px;
 }
 
+@media only screen and (max-width: 768px) {
+  div.graph-play-algorithm div.graph-play-algorithm-table {
+    display: block;
+    width: 98%;
+    min-width: 98%;
+    max-width: 98%;
+    padding: 0;
+    margin: 0;
+  }
+}
+
 div.graph-play-algorithm div.graph-play-algorithm-description{
   padding: 0 20px 20px 20px;
   min-width: 200px;
@@ -39,9 +59,23 @@ div.graph-play-algorithm div.graph-play-algorithm-description{
   border-radius: 10px;
 }
 
+@media only screen and (max-width: 768px) {
+  div.graph-play-algorithm div.graph-play-algorithm-description {
+    min-width: 90%;
+  }
+}
+
 div.graph-play-algorithm div.graph-play-algorithm-form {
   float: left;
   position: relative;
   display: flex;
   margin: 5px calc(50% - 235px);
+}
+
+@media only screen and (max-width: 768px) {
+  div.graph-play-algorithm div.graph-play-algorithm-form {
+    min-width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
 }

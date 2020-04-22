@@ -11,7 +11,14 @@ div.algorithms-content div.algorithms-content-drawing-inline {
   width: 100%;
 }
 
-div.algorithms-content div.algorithms-content-drawing-inline div.algorithms-content-drawing{
+@media only screen and (max-width: 768px) {
+  div.algorithms-content div.algorithms-content-drawing-inline {
+    display: block;
+    width: 100%;
+  }
+}
+
+div.algorithms-content div.algorithms-content-drawing-inline div.algorithms-content-drawing {
   position: relative;
   width: calc(100% - 800px);
   min-width: 500px;
@@ -20,12 +27,39 @@ div.algorithms-content div.algorithms-content-drawing-inline div.algorithms-cont
   padding-right: 25px;
 }
 
+@media only screen and (max-width: 768px) {
+  div.algorithms-content div.algorithms-content-drawing-inline div.algorithms-content-drawing {
+    display: block;
+    width: 96%;
+    min-width: 96%;
+    margin: auto;
+    padding: 0;
+  }
+}
+
 div.algorithms-content div.algorithms-content-drawing-inline div.algorithms-content-form {
   position: relative;
   margin: 10px 0;
 }
 
+@media only screen and (max-width: 768px) {
+  div.algorithms-content div.algorithms-content-drawing-inline div.algorithms-content-form {
+    display: block;
+    width: 98%;
+    min-width: 98%;
+  }
+}
+
 div.algorithms-content div.algorithms-content-communication-buttons {
   min-width: 505px;
   margin: 5px max(1px, calc(50% - 450px));
+}
+
+
+@media only screen and (max-width: 768px) {
+  div.algorithms-content div.algorithms-content-communication-buttons {
+    display: block;
+    min-width: 90%;
+    margin: 0;
+  }
 }

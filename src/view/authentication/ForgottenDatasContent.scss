@@ -1,6 +1,7 @@
 
 div.forgotten-datas-form {
   width: 20vw;
+  min-width: 400px;
   height: 100%;
   font-size: 1.2em;
   padding: 10px;
@@ -11,6 +12,12 @@ div.forgotten-datas-form {
   font-family: Arial, cursive;
   margin: auto;
   alignment: center;
+}
+
+@media only screen and (max-width: 768px) {
+  div.forgotten-datas-form {
+    width: 94%;
+  }
 }
 
 div.forgotten-datas-form div.container h1 {
