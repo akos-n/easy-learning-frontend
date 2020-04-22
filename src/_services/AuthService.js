@@ -22,10 +22,10 @@ function logout() {
 
 async function login(username, password) {
   if (password === "" || username === "") return;
-  let response = await fetch("http://localhost:3500/users/login/", {
+  let response = await fetch("https://easy-learning-server.herokuapp.com/users/login/", {
     method: "POST",
     headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3500/",
+      "Access-Control-Allow-Origin": "https://easy-learning-server.herokuapp.com/",
       Accept: "application/json",
       "Content-Type": "application/json",
     },
@@ -44,10 +44,10 @@ async function login(username, password) {
 }
 
 async function sendDatas(email) {
-  let response = await fetch("http://localhost:3500/users/forgotten-datas/", {
+  let response = await fetch("https://easy-learning-server.herokuapp.com/users/forgotten-datas/", {
     method: "POST",
     headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3500/",
+      "Access-Control-Allow-Origin": "https://easy-learning-server.herokuapp.com/",
       Accept: "application/json",
       "Content-Type": "application/json",
     },
@@ -65,10 +65,10 @@ async function sendDatas(email) {
 }
 
 async function register(username, email, password) {
-  let response = await fetch("http://localhost:3500/users/register/", {
+  let response = await fetch("https://easy-learning-server.herokuapp.com/users/register/", {
     method: "POST",
     headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3500/",
+      "Access-Control-Allow-Origin": "https://easy-learning-server.herokuapp.com/",
       Accept: "application/json",
       "Content-Type": "application/json",
     },
@@ -93,10 +93,10 @@ async function register(username, email, password) {
 }
 async function updatePassword(oldPassword, newPassword) {
   const currentUser = getCurrentUser();
-  let response = await fetch("http://localhost:3500/users/update-password/", {
+  let response = await fetch("https://easy-learning-server.herokuapp.com/users/update-password/", {
     method: "POST",
     headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3500/",
+      "Access-Control-Allow-Origin": "https://easy-learning-server.herokuapp.com/",
       Accept: "application/json",
       "Content-Type": "application/json",
     },

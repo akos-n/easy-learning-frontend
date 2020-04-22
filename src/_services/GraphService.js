@@ -3,11 +3,11 @@ import { Graph } from "../view/graph_algorithms/utils/Graph";
 
 async function runAlgorithm(algorithmType, graph, selectedVertex) {
   let response = await fetch(
-    "http://localhost:3500/run-algorithm/" + algorithmType,
+    "https://easy-learning-server.herokuapp.com/run-algorithm/" + algorithmType,
     {
       method: "POST",
       headers: {
-        "Access-Control-Allow-Origin": "http://localhost:3500/",
+        "Access-Control-Allow-Origin": "https://easy-learning-server.herokuapp.com/",
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -25,10 +25,10 @@ async function runAlgorithm(algorithmType, graph, selectedVertex) {
 }
 
 async function saveGraph(normalGraph, directedGraph, vertices, graphName) {
-  let response = await fetch("http://localhost:3500/graphs/save/", {
+  let response = await fetch("https://easy-learning-server.herokuapp.com/graphs/save/", {
     method: "POST",
     headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3500/",
+      "Access-Control-Allow-Origin": "https://easy-learning-server.herokuapp.com/",
       Accept: "application/json",
       "Content-Type": "application/json",
     },
@@ -52,10 +52,10 @@ async function saveGraph(normalGraph, directedGraph, vertices, graphName) {
 }
 
 async function getGraph(graphName) {
-  const response = await fetch("http://localhost:3500/graphs/get/", {
+  const response = await fetch("https://easy-learning-server.herokuapp.com/graphs/get/", {
     method: "POST",
     headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3500/",
+      "Access-Control-Allow-Origin": "https://easy-learning-server.herokuapp.com/",
       Accept: "application/json",
       "Content-Type": "application/json",
     },
@@ -87,10 +87,10 @@ async function getGraph(graphName) {
 }
 
 async function getLoadableGraphNames() {
-  let response = await fetch("http://localhost:3500/graphs/get-all-names/", {
+  let response = await fetch("https://easy-learning-server.herokuapp.com/graphs/get-all-names/", {
     method: "POST",
     headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3500/",
+      "Access-Control-Allow-Origin": "https://easy-learning-server.herokuapp.com/",
       Accept: "application/json",
       "Content-Type": "application/json",
     },
