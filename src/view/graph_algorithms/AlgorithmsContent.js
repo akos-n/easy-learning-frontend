@@ -438,26 +438,34 @@ class AlgorithmsContent extends React.Component {
   }
 
   async handleSaveButtonClicked(e) {
-    let response = await GraphService.saveGraph(
-      this.normalGraph,
-      this.directedGraph,
-      this.state.vertices,
-      this.graphName
-    );
-    if (await response.success) await this.componentDidMount();
-    else alert("Failed save!");
+    if (this.graphName === '') {
+      alert("Need a graph name to save!");
+    } else {
+      let response = await GraphService.saveGraph(
+        this.normalGraph,
+        this.directedGraph,
+        this.state.vertices,
+        this.graphName
+      );
+      if (await response.success) await this.componentDidMount();
+      else alert("Failed save!");
+    }
   }
 
   async handleLoadButtonClicked(e) {
-    const result = await GraphService.getGraph(this.loadGraphName);
-    if (result !== null) {
-      this.normalGraph = result.normalGraph;
-      this.directedGraph = result.directedGraph;
-      this.setState({
-        graph: this.state.directed ? this.directedGraph : this.normalGraph,
-        vertices: result.vertices,
-      });
-    } else alert("Graph not found in database!");
+    if (this.loadGraphName === "")
+      alert("You have to choose a graph to load!");
+    else {
+      const result = await GraphService.getGraph(this.loadGraphName);
+      if (result !== null) {
+        this.normalGraph = result.normalGraph;
+        this.directedGraph = result.directedGraph;
+        this.setState({
+          graph: this.state.directed ? this.directedGraph : this.normalGraph,
+          vertices: result.vertices,
+        });
+      } else alert("Graph not found in database!");
+    }
   }
 
   render() {

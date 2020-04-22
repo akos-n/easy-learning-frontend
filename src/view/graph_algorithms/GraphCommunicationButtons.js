@@ -9,7 +9,7 @@ class GraphCommunicationButtons extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loadableGraphValue: -1,
+      loadableGraphValue: "",
     };
   }
 
@@ -63,9 +63,9 @@ class GraphCommunicationButtons extends React.Component {
   }
 
   handleLoadButtonClicked(e) {
-    this.setState({ loadableGraphValue: -1 });
+    this.setState({ loadableGraphValue: "" });
     this.props.handleLoadButtonClicked(e);
-    this.props.handleLoadSelectChange({ target: { value: -1 } });
+    this.props.handleLoadSelectChange({ target: { value: "" } });
   }
 
   render() {
@@ -80,7 +80,7 @@ class GraphCommunicationButtons extends React.Component {
               this.handleLoadSelectChange(e);
             }}
           >
-            <option key={-1} value={-1} disabled hidden>
+            <option key={-1} value={""} disabled hidden>
               Choose a graph to load
             </option>
             {this.buildLoadOptions()}
