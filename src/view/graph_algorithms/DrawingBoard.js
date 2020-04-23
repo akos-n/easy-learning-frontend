@@ -45,9 +45,29 @@ class DrawingBoard extends GraphBaseDrawingBoard {
     }
   }
 
+  renderDeleteButton() {
+    if (
+      this.props.indexOfSelectedVertex !== -1 ||
+      this.props.selectedEdge !== null
+    ) {
+      return (
+        <div className={"drawing-board-delete-button"}>
+          <input
+            type={"button"}
+            value={"Delete"}
+            onClick={() => {
+              this.props.handleDeleteButtonOnClick();
+            }}
+          />
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="drawing-board" ref={this.containerRef}>
+        {this.renderDeleteButton()}
         <canvas
           ref={this.props.drawingArea}
           tabIndex={0}

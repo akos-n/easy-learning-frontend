@@ -438,7 +438,7 @@ class AlgorithmsContent extends React.Component {
   }
 
   async handleSaveButtonClicked(e) {
-    if (this.graphName === '') {
+    if (this.graphName === "") {
       alert("Need a graph name to save!");
     } else {
       let response = await GraphService.saveGraph(
@@ -453,8 +453,7 @@ class AlgorithmsContent extends React.Component {
   }
 
   async handleLoadButtonClicked(e) {
-    if (this.loadGraphName === "")
-      alert("You have to choose a graph to load!");
+    if (this.loadGraphName === "") alert("You have to choose a graph to load!");
     else {
       const result = await GraphService.getGraph(this.loadGraphName);
       if (result !== null) {
@@ -482,6 +481,9 @@ class AlgorithmsContent extends React.Component {
               indexOfSelectedVertex={this.state.indexOfSelectedVertex}
               graph={this.state.graph}
               selectedEdge={this.state.selectedEdge}
+              handleDeleteButtonOnClick={() => {
+                this.handleBoardOnDelete();
+              }}
               handleOnClick={(e) => {
                 this.handleBoardOnClick(e);
               }}

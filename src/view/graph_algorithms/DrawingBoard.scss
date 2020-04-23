@@ -17,7 +17,7 @@ div.drawing-board div.drawing-board-weight-of-edge {
   left: 10px;
   float: left;
   display: inline-block;
-  height: 0px;
+  height: 0;
 }
 
 div.drawing-board div.drawing-board-weight-of-edge label {
@@ -43,4 +43,30 @@ div.drawing-board div.drawing-board-weight-of-edge input[type="number"] {
 
 div.drawing-board-content input[type="number"]:focus {
   background: #d2d9dd;
+}
+
+div.drawing-board div.drawing-board-delete-button {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  float: left;
+  display: inline-block;
+  height: 0;
+}
+
+div.drawing-board div.drawing-board-delete-button input[type="button"]
+{
+  color: #F5F5F5;
+  background: #008B8B;
+  font-size: 1.2em;
+  text-align: center;
+  width: 90px;
+  float: left;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+div.drawing-board div.drawing-board-delete-button input[type="button"]:hover
+{
+  background: #808080;
 }
