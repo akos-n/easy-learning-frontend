@@ -1,5 +1,6 @@
 import React from "react";
 import AlgorithmsContent from "./AlgorithmsContent";
+import UsersGuidePopup from "./UsersGuidePopup";
 import GraphPlayAlgorithm from "./GraphPlayAlgorithm";
 import { Graph } from "./utils/Graph";
 import Utilities from "../../utils/Utilities";
@@ -16,7 +17,14 @@ class GraphContent extends React.Component {
       vertices: null,
       graph: null,
       playableContent: null,
+      showUsersGuidePopup: false,
     };
+  }
+
+  toggleUsersGuidePopup() {
+    this.setState({
+      showUsersGuidePopup: !this.state.showUsersGuidePopup,
+    });
   }
 
   convertToValue(value) {
@@ -185,6 +193,14 @@ class GraphContent extends React.Component {
       </>
     ) : (
       <>
+        <div className="users-guide-button">
+          <input
+            type={"button"}
+            id={"graph-content-users-guide-button"}
+            value={"User's Guide"}
+            onClick={this.toggleUsersGuidePopup.bind(this)}
+          />
+        </div>
         <AlgorithmsContent
           vertices={this.savedVertices}
           directedGraph={this.savedDirectedGraph}
@@ -205,6 +221,9 @@ class GraphContent extends React.Component {
             );
           }}
         />
+        {this.state.showUsersGuidePopup ? (
+          <UsersGuidePopup closePopup={this.toggleUsersGuidePopup.bind(this)} />
+        ) : null}
       </>
     );
   }

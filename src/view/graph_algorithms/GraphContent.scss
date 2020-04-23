@@ -1,4 +1,4 @@
-div.back-to-create-button {
+div.back-to-create-button, div.users-guide-button {
   height: 40px;
   max-width: 200px;
   font-size: 1.2em;
@@ -12,7 +12,8 @@ div.back-to-create-button {
   float: right;
 }
 
-#graph-content-back-button-to-create-graph {
+#graph-content-back-button-to-create-graph,
+#graph-content-users-guide-button {
     position: relative;
     margin: 0 10px;
     display: block;
@@ -26,6 +27,7 @@ div.back-to-create-button {
     border: 1px solid gray;
     border-radius: 10px;
 }
-graph-content-back-button-to-create-graph:hover {
+graph-content-back-button-to-create-graph:hover,
+#graph-content-users-guide-button:hover {
   background: #808080;
 }
