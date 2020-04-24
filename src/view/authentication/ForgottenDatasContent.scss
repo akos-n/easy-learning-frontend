@@ -62,8 +62,9 @@ div.forgotten-datas-form div.container input[type="button"]
   font-size: 18px;
   text-align: center;
   font-style: normal;
+  border: 1px solid gray;
+  border-radius: 10px;
   width: 100%;
-  border: 0;
 }
 
 div.forgotten-datas-form div.container input[type="button"]:hover

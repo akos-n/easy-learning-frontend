@@ -69,7 +69,8 @@ div.login-form div.container input[type="button"]
   text-align: center;
   font-style: normal;
   width: 100%;
-  border: 0;
+  border: 1px solid gray;
+  border-radius: 10px;
 }
 
 div.login-form div.container input[type="button"]:hover
