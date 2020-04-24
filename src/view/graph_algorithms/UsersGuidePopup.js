@@ -46,7 +46,7 @@ class UsersGuidePopup extends React.Component {
         { key: v4() },
         this.getNewCollapsible(
           "SET GRAPH'S DIRECTIVITY",
-          "Click on the switch on the top of the run algorithm dialog. (The dialog is on the right side of the drawing board.)"
+          "Click on the switch on the top of the run algorithm dialog. (The dialog is below or on the right side of the drawing board.)"
         )
       )
     );
@@ -143,7 +143,7 @@ class UsersGuidePopup extends React.Component {
         { key: v4() },
         this.getNewCollapsible(
           "RUN ALGORITHM",
-          "You find the run algorithm dialog on the right side of the drawing board. First you have to choose the algorithm which you want to run on the graph and a starting vertex if the algorithm needs it. Second if you chose the algorithm then click the Run button on the bottom of the dialog."
+          "You find the run algorithm dialog below or on the right side of the drawing board. First you have to choose the algorithm which you want to run on the graph and a starting vertex if the algorithm needs it. Second if you chose the algorithm then click the Run button on the bottom of the dialog."
         )
       )
     );

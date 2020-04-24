@@ -11,6 +11,13 @@ div.algorithms-content div.algorithms-content-drawing-inline {
   width: 100%;
 }
 
+@media only screen and (max-width: 992px) {
+  div.algorithms-content div.algorithms-content-drawing-inline {
+    display: block;
+    width: 100%;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   div.algorithms-content div.algorithms-content-drawing-inline {
     display: block;
@@ -25,6 +32,13 @@ div.algorithms-content div.algorithms-content-drawing-inline div.algorithms-cont
   max-width: calc(100% - calc(2*calc(50% - 450px)) - 7.5px);
   margin: 10px 0 10px max(1px, min(calc(50% - 450px)));
   padding-right: 25px;
+}
+
+@media only screen and (max-width: 992px) {
+  div.algorithms-content div.algorithms-content-drawing-inline div.algorithms-content-drawing {
+    display: block;
+    margin: 10px calc(50% - 260px);
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -43,6 +57,14 @@ div.algorithms-content div.algorithms-content-drawing-inline div.algorithms-cont
 }
 
 @media only screen and (max-width: 768px) {
+  div.algorithms-content div.algorithms-content-drawing-inline div.algorithms-content-form {
+    display: block;
+    width: 98%;
+    min-width: 98%;
+  }
+}
+
+@media only screen and (max-width: 992px) {
   div.algorithms-content div.algorithms-content-drawing-inline div.algorithms-content-form {
     display: block;
     width: 98%;
