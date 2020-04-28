@@ -23,6 +23,7 @@
     "react-router-dom": "^5.1.2"
   },
   "scripts": {
+    "prestart": "npm test -- --watchAll=false",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
