@@ -11,7 +11,9 @@ class Footer extends React.Component {
       { className: clsx(this.props.className, "footer") },
       <>
         <h1>Created by: Akos Nagy</h1>
-        <p>Email: akos.nagy95@gmail.com</p>
+        <p>
+          GitHub: <a href={"https://github.com/akos-n"}>akos-n</a>
+        </p>
       </>
     );
   }
