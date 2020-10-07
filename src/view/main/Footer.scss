@@ -1,6 +1,6 @@
 footer {
-  background-color: rgb(0,0,0,0.85);
-  color: #D3D3D3;
+  background-color: rgb(0, 0, 0, 0.85);
+  color: #d3d3d3;
   text-align: center;
   width: 95%;
   border: 3px solid black;
@@ -16,24 +16,23 @@ footer h1 {
 }
 
 footer p {
+  a:link {
+    color: #d3d3d3;
+    text-decoration: none;
+  }
 
-}
-a:link {
-  color: #D3D3D3;
-  text-decoration: none;
-}
+  a:visited {
+    color: #d3d3d3;
+    text-decoration: none;
+  }
 
-a:visited {
-  color: #D3D3D3;
-  text-decoration: none;
-}
+  a:hover {
+    color: #d3d3d3;
+    text-decoration: underline;
+  }
 
-a:hover {
-  color: #D3D3D3;
-  text-decoration: underline;
-}
-
-a:active {
-  color: #D3D3D3;
-  text-decoration: underline;
+  a:active {
+    color: #d3d3d3;
+    text-decoration: underline;
+  }
 }
