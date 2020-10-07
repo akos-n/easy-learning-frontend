@@ -1,0 +1,39 @@
+div.page-not-found div.container {
+  color: #d3d3d3;
+  text-align: center;
+}
+
+div.page-not-found div.container h5 {
+  font-size: 10em;
+  margin: 10px 0px 0px 0px;
+}
+
+div.page-not-found div.container h6 {
+  font-size: 3em;
+  margin: 10px 0px 0px 0px;
+}
+
+div.page-not-found div.container p {
+  font-size: 1.5em;
+  margin: 10px 0px 75px 0px;
+
+  a:link {
+    color: #d3d3d3;
+    text-decoration: underline;
+  }
+
+  a:visited {
+    color: #d3d3d3;
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: #d3d3d3;
+    text-decoration: underline;
+  }
+
+  a:active {
+    color: #d3d3d3;
+    text-decoration: underline;
+  }
+}
