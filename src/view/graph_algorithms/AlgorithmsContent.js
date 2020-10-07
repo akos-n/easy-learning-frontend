@@ -268,10 +268,15 @@ class AlgorithmsContent extends React.Component {
     } else if (this.getIndexOfClickedVertex(newPos) !== -1) {
       this.selectVertex(newPos);
     } else if (this.canPlaceNewVertex(newPos)) {
-      this.addNewVertex(
-        new Position(event.x - canvasRect.left, event.y - canvasRect.top)
-      );
-      if (this.hasSelectedVertex()) this.deselectSelectedVertex();
+      if (this.hasSelectedVertex()) {
+        this.deselectSelectedVertex();
+      } else if (this.hasSelectedEdge()) {
+        this.deselectSelectedEdge();
+      } else {
+        this.addNewVertex(
+          new Position(event.x - canvasRect.left, event.y - canvasRect.top)
+        );
+      }
     } else if (this.hasSelectedVertex()) {
       this.deselectSelectedVertex();
     } else if (this.hasSelectedEdge()) {
