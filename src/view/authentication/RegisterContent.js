@@ -46,9 +46,9 @@ class RegisterContent extends React.Component {
       emptyFieldNames.push("repeat password");
     }
 
-    let warningString = "";
+    let alertString = "";
     if (emptyFieldNames.length > 0) {
-      warningString =
+      alertString =
         "The " +
         emptyFieldNames.join(", ") +
         (emptyFieldNames.length === 1 ? " field is" : " fields are") +
@@ -56,15 +56,15 @@ class RegisterContent extends React.Component {
     }
 
     if (this.state.password !== this.state.passwordRepeat) {
-      warningString +=
-        (warningString !== "" ? " and t" : "T") +
+      alertString +=
+        (alertString !== "" ? " and t" : "T") +
         "he given passwords are different!";
-    } else if (warningString !== "") {
-      warningString += "!";
+    } else if (alertString !== "") {
+      alertString += "!";
     }
 
-    if (warningString !== "") {
-      alert(warningString);
+    if (alertString !== "") {
+      alert(alertString);
       return false;
     }
     return true;

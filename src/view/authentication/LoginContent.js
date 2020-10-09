@@ -21,8 +21,33 @@ class LoginContent extends React.Component {
     this.setState({ password: e.target.value });
   }
 
+  checkPreConditions() {
+    let emptyFieldNames = [];
+    if (this.state.username === "") {
+      emptyFieldNames.push("username");
+    }
+    if (this.state.password === "") {
+      emptyFieldNames.push("password");
+    }
+
+    let alertString = "";
+    if (emptyFieldNames.length > 0) {
+      alertString =
+        "The " +
+        emptyFieldNames.join(", ") +
+        (emptyFieldNames.length === 1 ? " field is" : " fields are") +
+        " empty!";
+    }
+
+    if (alertString !== "") {
+      alert(alertString);
+      return false;
+    }
+    return true;
+  }
+
   async handleOnSubmit(e) {
-    if (this.state.password === "" || this.state.username === "") return;
+    if (!this.checkPreConditions()) return;
 
     const response = await AuthService.login(
       this.state.username,
