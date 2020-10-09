@@ -31,21 +31,57 @@ class RegisterContent extends React.Component {
     this.setState({ passwordRepeat: e.target.value });
   }
 
-  async handleOnSubmit() {
-    if (
-      this.state.password !== this.state.passwordRepeat &&
-      this.state.password !== ""
-    )
-      return;
+  checkPreConditions() {
+    let emptyFieldNames = [];
+    if (this.state.username === "") {
+      emptyFieldNames.push("username");
+    }
+    if (this.state.email === "") {
+      emptyFieldNames.push("email");
+    }
+    if (this.state.password === "") {
+      emptyFieldNames.push("password");
+    }
+    if (this.state.passwordRepeat === "") {
+      emptyFieldNames.push("repeat password");
+    }
 
-    if (
-      await AuthService.register(
-        this.state.username,
-        this.state.email,
-        this.state.password
-      )
-    )
-      browserHistory.push("/login");
+    let warningString = "";
+    if (emptyFieldNames.length > 0) {
+      warningString =
+        "The " +
+        emptyFieldNames.join(", ") +
+        (emptyFieldNames.length === 1 ? " field is" : " fields are") +
+        " empty";
+    }
+
+    if (this.state.password !== this.state.passwordRepeat) {
+      warningString +=
+        (warningString !== "" ? " and t" : "T") +
+        "he given passwords are different!";
+    } else if (warningString !== "") {
+      warningString += "!";
+    }
+
+    if (warningString !== "") {
+      alert(warningString);
+      return false;
+    }
+    return true;
+  }
+
+  async handleOnSubmit() {
+    if (this.checkPreConditions()) {
+      if (
+        await AuthService.register(
+          this.state.username,
+          this.state.email,
+          this.state.password
+        )
+      ) {
+        browserHistory.push("/login");
+      }
+    }
   }
 
   render() {
