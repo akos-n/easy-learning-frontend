@@ -2,14 +2,14 @@ import React from "react";
 import browserHistory from "../../_services/HistoryService";
 import AuthService from "../../_services/AuthService";
 
+import PageNotFound from "../main/PageNotFound";
+
 import "./UpdatePassword.scss";
 
 class RegisterContent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      email: "",
       oldPassword: "",
       newPassword: "",
       newPasswordRepeat: "",
@@ -28,19 +28,59 @@ class RegisterContent extends React.Component {
     this.setState({ newPasswordRepeat: e.target.value });
   }
 
+  checkPreConditions() {
+    let emptyFieldNames = [];
+    if (this.state.oldPassword === "") {
+      emptyFieldNames.push("old or temporary password");
+    }
+    if (this.state.newPassword === "") {
+      emptyFieldNames.push("new password");
+    }
+    if (this.state.newPasswordRepeat === "") {
+      emptyFieldNames.push("repeat new password");
+    }
+
+    let alertString = "";
+    if (emptyFieldNames.length > 0) {
+      alertString =
+        "The " +
+        emptyFieldNames.join(", ") +
+        (emptyFieldNames.length === 1 ? " field is" : " fields are") +
+        " empty";
+    }
+
+    if (this.state.newPassword !== this.state.newPasswordRepeat) {
+      alertString +=
+        (alertString !== "" ? " and t" : "T") +
+        "he given new passwords are different!";
+    } else if (alertString !== "") {
+      alertString += "!";
+    }
+
+    if (alertString !== "") {
+      alert(alertString);
+      return false;
+    }
+    return true;
+  }
+
   async handleOnSubmit() {
-    if (this.state.newPassword !== this.state.newPasswordRepeat) return;
+    if (!this.checkPreConditions()) return;
 
     if (
       await AuthService.updatePassword(
         this.state.oldPassword,
         this.state.newPassword
       )
-    )
+    ) {
       browserHistory.push("/");
+    }
   }
 
   render() {
+    if (AuthService.getCurrentUser() === null) {
+      return <PageNotFound />;
+    }
     return (
       <>
         <div className="update-password-form">
