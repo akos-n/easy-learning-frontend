@@ -17,8 +17,13 @@ class ForgottenDatasContent extends React.Component {
   }
 
   async handleOnSubmit(e) {
-    if (await AuthService.sendDatas(this.state.email))
+    if (this.state.email === "") {
+      alert("The email field is empty!");
+      return;
+    }
+    if (await AuthService.sendDatas(this.state.email)) {
       browserHistory.push("/login");
+    }
   }
 
   render() {
