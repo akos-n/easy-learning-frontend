@@ -452,7 +452,7 @@ class AlgorithmsContent extends React.Component {
           this.directedGraph,
           this.state.vertices,
           this.graphName
-        )
+        ).json()
       );
       if (response.success) {
         await this.componentDidMount();
