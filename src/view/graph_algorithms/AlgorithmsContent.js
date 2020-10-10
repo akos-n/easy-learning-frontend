@@ -452,8 +452,11 @@ class AlgorithmsContent extends React.Component {
         this.state.vertices,
         this.graphName
       );
-      if (await response.success) await this.componentDidMount();
-      else alert("Failed save!");
+      if (await response.success) {
+        await this.componentDidMount();
+      } else {
+        alert(response.err);
+      }
     }
   }
 
