@@ -7,7 +7,8 @@ async function runAlgorithm(algorithmType, graph, selectedVertex) {
     {
       method: "POST",
       headers: {
-        "Access-Control-Allow-Origin": "https://easy-learning-server.herokuapp.com/",
+        "Access-Control-Allow-Origin":
+          "https://easy-learning-server.herokuapp.com/",
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -25,51 +26,58 @@ async function runAlgorithm(algorithmType, graph, selectedVertex) {
 }
 
 async function saveGraph(normalGraph, directedGraph, vertices, graphName) {
-  let response = await fetch("https://easy-learning-server.herokuapp.com/graphs/save/", {
-    method: "POST",
-    headers: {
-      "Access-Control-Allow-Origin": "https://easy-learning-server.herokuapp.com/",
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      userId: authService.getCurrentUser().id,
-      graphName: graphName,
-      vertices: vertices,
-      normalGraph: {
-        directed: normalGraph.directed,
-        noOfVertices: normalGraph.noOfVertices,
-        adjList: Array.from(normalGraph.adjList),
+  let response = await fetch(
+    "https://easy-learning-server.herokuapp.com/graphs/save/",
+    {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin":
+          "https://easy-learning-server.herokuapp.com/",
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      directedGraph: {
-        directed: directedGraph.directed,
-        noOfVertices: directedGraph.noOfVertices,
-        adjList: Array.from(directedGraph.adjList),
-      },
-    }),
-  });
+      body: JSON.stringify({
+        userId: authService.getCurrentUser().id,
+        graphName: graphName,
+        vertices: vertices,
+        normalGraph: {
+          directed: normalGraph.directed,
+          noOfVertices: normalGraph.noOfVertices,
+          adjList: Array.from(normalGraph.adjList),
+        },
+        directedGraph: {
+          directed: directedGraph.directed,
+          noOfVertices: directedGraph.noOfVertices,
+          adjList: Array.from(directedGraph.adjList),
+        },
+      }),
+    }
+  );
   return JSON.parse(await response.json());
 }
 
 async function getGraph(graphName) {
-  const response = await fetch("https://easy-learning-server.herokuapp.com/graphs/get/", {
-    method: "POST",
-    headers: {
-      "Access-Control-Allow-Origin": "https://easy-learning-server.herokuapp.com/",
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      userId:
-        authService.getCurrentUser() !== null
-          ? authService.getCurrentUser().id
-          : "guest",
-      graphName: graphName,
-    }),
-  });
+  const response = await fetch(
+    "https://easy-learning-server.herokuapp.com/graphs/get/",
+    {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin":
+          "https://easy-learning-server.herokuapp.com/",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId:
+          authService.getCurrentUser() !== null
+            ? authService.getCurrentUser().id
+            : "guest",
+        graphName: graphName,
+      }),
+    }
+  );
   const responseJSON = await response.json();
   if (responseJSON.success) {
-    console.log(responseJSON);
     const normalGraphFromJSON = JSON.parse(responseJSON.normalGraph);
     const normalGraph = new Graph(normalGraphFromJSON.directed);
     normalGraph.noOfVertices = normalGraphFromJSON.noOfVertices;
@@ -87,20 +95,24 @@ async function getGraph(graphName) {
 }
 
 async function getLoadableGraphNames() {
-  let response = await fetch("https://easy-learning-server.herokuapp.com/graphs/get-all-names/", {
-    method: "POST",
-    headers: {
-      "Access-Control-Allow-Origin": "https://easy-learning-server.herokuapp.com/",
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      userId:
-        authService.getCurrentUser() !== null
-          ? authService.getCurrentUser().id
-          : "guest",
-    }),
-  });
+  let response = await fetch(
+    "https://easy-learning-server.herokuapp.com/graphs/get-all-names/",
+    {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin":
+          "https://easy-learning-server.herokuapp.com/",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId:
+          authService.getCurrentUser() !== null
+            ? authService.getCurrentUser().id
+            : "guest",
+      }),
+    }
+  );
   return JSON.parse(await response.json());
 }
 

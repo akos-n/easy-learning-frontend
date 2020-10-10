@@ -446,13 +446,15 @@ class AlgorithmsContent extends React.Component {
     if (this.graphName === "") {
       alert("Need a graph name to save!");
     } else {
-      let response = await GraphService.saveGraph(
-        this.normalGraph,
-        this.directedGraph,
-        this.state.vertices,
-        this.graphName
+      let response = JSON.parse(
+        await GraphService.saveGraph(
+          this.normalGraph,
+          this.directedGraph,
+          this.state.vertices,
+          this.graphName
+        )
       );
-      if (await response.success) {
+      if (response.success) {
         await this.componentDidMount();
       } else {
         alert(response.err);
