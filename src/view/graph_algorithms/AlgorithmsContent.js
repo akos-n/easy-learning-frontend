@@ -446,7 +446,7 @@ class AlgorithmsContent extends React.Component {
     if (this.graphName === "") {
       alert("Need a graph name to save!");
     } else {
-      await GraphService.saveGraph(
+      GraphService.saveGraph(
         this.normalGraph,
         this.directedGraph,
         this.state.vertices,
