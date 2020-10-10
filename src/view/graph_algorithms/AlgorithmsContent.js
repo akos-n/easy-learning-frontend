@@ -452,11 +452,10 @@ class AlgorithmsContent extends React.Component {
         this.state.vertices,
         this.graphName
       ).then((response) => {
-        const result = response.json();
-        if (result.success) {
+        if (response.success) {
           this.componentDidMount();
         } else {
-          alert(result.err);
+          alert(response.err);
         }
       });
     }
