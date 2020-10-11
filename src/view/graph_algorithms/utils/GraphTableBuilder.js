@@ -70,7 +70,7 @@ function buildBFSRowCells(currentStep) {
       React.createElement(
         "td",
         { key: v4() },
-        "<" + currentStep.queue.items.toString() + ">"
+        "<" + currentStep.queue.items.join(", ") + ">"
       ),
     ])
     .concat([React.createElement("td", { key: v4() }, " ")])
@@ -258,7 +258,7 @@ function buildQBBFRowCells(currentStep) {
       React.createElement(
         "td",
         { key: v4() },
-        "<" + currentStep.queue.items.toString() + ">"
+        "<" + currentStep.queue.items.join(", ") + ">"
       ),
     ])
     .concat([React.createElement("td", { key: v4() }, " ")])
