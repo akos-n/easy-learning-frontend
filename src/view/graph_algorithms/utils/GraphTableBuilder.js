@@ -125,16 +125,24 @@ function buildTOPOHead() {
 
 function buildTOPORowCells(currentStep) {
   return [
-    React.createElement("td", { key: v4() }, currentStep.topologicalOrder),
+    React.createElement(
+      "td",
+      { key: v4() },
+      currentStep.topologicalOrder.join(", ")
+    ),
   ]
     .concat([
-      React.createElement("td", { key: v4() }, currentStep.inDegrees.join(" ")),
+      React.createElement(
+        "td",
+        { key: v4() },
+        currentStep.inDegrees.join(", ")
+      ),
     ])
     .concat([
       React.createElement(
         "td",
         { key: v4() },
-        "<" + currentStep.stack.items.toString() + ">"
+        "<" + currentStep.stack.items.join(", ") + ">"
       ),
     ]);
 }
@@ -147,12 +155,16 @@ function buildTOPOWithDFSHead() {
 
 function buildTOPOWithDFSRowCells(currentStep) {
   return [
-    React.createElement("td", { key: v4() }, currentStep.topologicalOrder),
+    React.createElement(
+      "td",
+      { key: v4() },
+      currentStep.topologicalOrder.join(", ")
+    ),
   ].concat([
     React.createElement(
       "td",
       { key: v4() },
-      "<" + currentStep.stack.items.toString() + ">"
+      "<" + currentStep.stack.items.join(", ") + ">"
     ),
   ]);
 }
