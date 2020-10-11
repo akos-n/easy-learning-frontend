@@ -180,7 +180,13 @@ function buildKruskalRowCells(currentStep) {
     React.createElement(
       "td",
       { key: v4() },
-      JSON.stringify(currentStep.kruskalSets)
+      (() => {
+        let cellString = [];
+        for (let i = 0; i < currentStep.kruskalSets.length; ++i) {
+          cellString.push("| " + currentStep.kruskalSets[i].join(", ") + " |");
+        }
+        return cellString.join("\n");
+      })()
     ),
   ]
     .concat([
@@ -191,10 +197,10 @@ function buildKruskalRowCells(currentStep) {
           let sortedEdgesList = [];
           for (let edge of currentStep.sortedEdges.items) {
             sortedEdgesList.push(
-              `from: ${edge.fromVertex}, to: ${edge.toVertex}, weight: ${edge.weight}`
+              `| start: ${edge.fromVertex}, end: ${edge.toVertex}, weight: ${edge.weight} |`
             );
           }
-          return sortedEdgesList.join("  ||  ");
+          return sortedEdgesList.join("\n");
         })()
       ),
     ])
@@ -206,10 +212,10 @@ function buildKruskalRowCells(currentStep) {
           let chosenEdgesList = [];
           for (let edge of currentStep.chosenEdges) {
             chosenEdgesList.push(
-              `from: ${edge.fromVertex}, to: ${edge.toVertex}, weight: ${edge.weight}`
+              `| start: ${edge.fromVertex}, end: ${edge.toVertex}, weight: ${edge.weight} |`
             );
           }
-          return chosenEdgesList.join("  ||  ");
+          return chosenEdgesList.join("\n");
         })()
       ),
     ]);

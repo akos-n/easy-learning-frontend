@@ -5,7 +5,6 @@ import "./GraphAlgorithmTable.scss";
 
 class GraphAlgorithmTable extends React.Component {
   render() {
-    console.log(buildTable(this.props.algorithmSteps));
     return (
       <div className="algorithm-table">
         {buildTable(this.props.algorithmSteps)}
