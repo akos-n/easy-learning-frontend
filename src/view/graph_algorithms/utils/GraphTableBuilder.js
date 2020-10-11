@@ -279,7 +279,7 @@ function buildDijkstraRowCells(currentStep) {
     React.createElement(
       "td",
       { key: v4() },
-      currentStep.currentVertex < 0 ? "init" : " "
+      currentStep.step === -1 ? "init" : currentStep.step === -2 ? "end" : " "
     ),
   ]
     .concat(buildAttributeCells("distance", currentStep.vertices))
