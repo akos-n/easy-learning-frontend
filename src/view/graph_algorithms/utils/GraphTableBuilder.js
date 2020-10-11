@@ -127,7 +127,9 @@ function buildTOPORowCells(currentStep) {
   return [
     React.createElement("td", { key: v4() }, currentStep.topologicalOrder),
   ]
-    .concat([React.createElement("td", { key: v4() }, currentStep.inDegrees)])
+    .concat([
+      React.createElement("td", { key: v4() }, currentStep.inDegrees.join(" ")),
+    ])
     .concat([
       React.createElement(
         "td",
