@@ -464,15 +464,16 @@ class AlgorithmsContent extends React.Component {
   async handleLoadButtonClicked(e) {
     if (this.loadGraphName === "") alert("You have to choose a graph to load!");
     else {
-      const result = await GraphService.getGraph(this.loadGraphName);
-      if (result !== null) {
-        this.normalGraph = result.normalGraph;
-        this.directedGraph = result.directedGraph;
-        this.setState({
-          graph: this.state.directed ? this.directedGraph : this.normalGraph,
-          vertices: result.vertices,
-        });
-      } else alert("Graph not found in database!");
+      GraphService.getGraph(this.loadGraphName).then((result) => {
+        if (result) {
+          this.normalGraph = result.normalGraph;
+          this.directedGraph = result.directedGraph;
+          this.setState({
+            graph: this.state.directed ? this.directedGraph : this.normalGraph,
+            vertices: result.vertices,
+          });
+        }
+      });
     }
   }
 

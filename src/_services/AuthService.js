@@ -94,12 +94,7 @@ async function register(username, email, password) {
   if (res.success) {
     return true;
   } else {
-    let errMsg = "";
-    if (res.err.errors.username)
-      errMsg += "Username already exists in the database.\n";
-    if (res.err.errors.email)
-      errMsg += "Email already exists in the database.\n";
-    alert(errMsg);
+    alert(res.err);
     return false;
   }
 }

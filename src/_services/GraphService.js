@@ -91,7 +91,10 @@ async function getGraph(graphName) {
       directedGraph: directedGraph,
       vertices: JSON.parse(responseJSON.vertices),
     };
-  } else return null;
+  } else {
+    alert(responseJSON.err);
+    return null;
+  }
 }
 
 async function getLoadableGraphNames() {
