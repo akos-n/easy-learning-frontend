@@ -36,7 +36,13 @@ class AlgorithmsContent extends React.Component {
   }
 
   async componentDidMount() {
-    this.setState({ graphNames: await GraphService.getLoadableGraphNames() });
+    GraphService.getLoadableGraphNames().then((result) => {
+      if (result.success) {
+        this.setState({ graphNames: result.graphNames });
+      } else {
+        alert(result.err);
+      }
+    });
   }
 
   isPositionInVertex(position, vertex) {
