@@ -358,24 +358,32 @@ function buildFWTable(algorithmSteps) {
         )
       )}
       {React.createElement(
-        "tr",
+        "tbody",
         { key: v4() },
-        [<td key={v4()}> </td>]
-          .concat(
-            buildAttributeCells(
-              "indexOfVertex",
-              algorithmSteps.steps[algorithmSteps.currentStepIndex].vertices
+        React.createElement(
+          "tr",
+          { key: v4() },
+          [<td key={v4()}> </td>]
+            .concat(
+              buildAttributeCells(
+                "indexOfVertex",
+                algorithmSteps.steps[algorithmSteps.currentStepIndex].vertices
+              )
             )
-          )
-          .concat([<td key={v4()}> </td>])
-          .concat(
-            buildAttributeCells(
-              "indexOfVertex",
-              algorithmSteps.steps[algorithmSteps.currentStepIndex].vertices
+            .concat([<td key={v4()}> </td>])
+            .concat(
+              buildAttributeCells(
+                "indexOfVertex",
+                algorithmSteps.steps[algorithmSteps.currentStepIndex].vertices
+              )
             )
-          )
+        )
       )}
-      {buildFWRowCells(algorithmSteps.steps[algorithmSteps.currentStepIndex])}
+      {React.createElement(
+        "tbody",
+        { key: v4() },
+        buildFWRowCells(algorithmSteps.steps[algorithmSteps.currentStepIndex])
+      )}
     </>
   );
 }

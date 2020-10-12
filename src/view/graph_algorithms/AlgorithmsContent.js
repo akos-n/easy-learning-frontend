@@ -407,6 +407,8 @@ class AlgorithmsContent extends React.Component {
       this.state.indexOfSelectedVertex === -1
     ) {
       alert("This algorithm needs a starting vertex. Please select one!");
+    } else if (this.state.graph.noOfVertices === 0) {
+      alert("Please create or load a graph first!");
     } else {
       let response = await GraphService.runAlgorithm(
         this.state.algorithm,
