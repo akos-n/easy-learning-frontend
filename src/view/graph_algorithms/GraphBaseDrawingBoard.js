@@ -39,7 +39,7 @@ class GraphBaseDrawingBoard extends React.Component {
       }
     }
     if (vertex.hasOwnProperty("finishingTime")) {
-      if (vertex.discoveryTime !== 0) {
+      if (vertex.finishingTime !== 0) {
         this.ctx.fillText(
           vertex.finishingTime,
           vertex.position.x + 15,

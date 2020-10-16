@@ -28,6 +28,23 @@ class GraphPlayDrawingBoard extends GraphBaseDrawingBoard {
     return false;
   }
 
+  getColorOfChosenEdge(edge) {
+    for (let currentEdge of this.props.algorithmSteps.steps[
+      this.props.algorithmSteps.currentStepIndex
+    ].chosenEdges) {
+      if (
+        edge.toVertex === currentEdge.toVertex &&
+        edge.fromVertex === currentEdge.fromVertex &&
+        edge.weight === currentEdge.weight
+      ) {
+        return currentEdge.color !== Color.BLACK
+          ? currentEdge.color
+          : Color.WHITE;
+      }
+    }
+    return Color.WHITE;
+  }
+
   drawEdges() {
     for (let i = 0; i < this.props.vertices.length; ++i) {
       for (let j = 0; j < this.props.graph.adjList.get(i).length; ++j) {
@@ -36,8 +53,9 @@ class GraphPlayDrawingBoard extends GraphBaseDrawingBoard {
           this.hasChosenEdges() &&
           this.isEdgeInChosenEdges(this.props.graph.adjList.get(i)[j])
         ) {
-          if (currentDrawColor === Color.BLACK)
-            currentDrawColor = Color.DARK_RED;
+          currentDrawColor = this.getColorOfChosenEdge(
+            this.props.graph.adjList.get(i)[j]
+          );
           this.ctx.lineWidth = 3;
         }
         this.ctx.fillStyle = currentDrawColor;

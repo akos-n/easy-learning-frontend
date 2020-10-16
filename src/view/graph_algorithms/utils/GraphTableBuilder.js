@@ -197,7 +197,7 @@ function buildKruskalRowCells(currentStep) {
           let sortedEdgesList = [];
           for (let edge of currentStep.sortedEdges.items) {
             sortedEdgesList.push(
-              `| start: ${edge.fromVertex}, end: ${edge.toVertex}, weight: ${edge.weight} |`
+              `{ (${edge.fromVertex}, ${edge.toVertex}); ${edge.weight} }`
             );
           }
           return sortedEdgesList.join("\n");
@@ -212,7 +212,7 @@ function buildKruskalRowCells(currentStep) {
           let chosenEdgesList = [];
           for (let edge of currentStep.chosenEdges) {
             chosenEdgesList.push(
-              `| start: ${edge.fromVertex}, end: ${edge.toVertex}, weight: ${edge.weight} |`
+              `{ (${edge.fromVertex}, ${edge.toVertex}); ${edge.weight} }`
             );
           }
           return chosenEdgesList.join("\n");

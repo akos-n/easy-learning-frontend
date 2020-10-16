@@ -23,19 +23,13 @@ class GraphForm extends React.Component {
         <option key={3} value="topo-dfs">
           Topological order with Depth-First Search
         </option>,
-        <option key={4} value="kruskal">
-          Kruskal algorithm for minimum-spanning-tree
-        </option>,
-        <option key={5} value="prim">
-          Prim's algorithm for minimum-spanning-tree
-        </option>,
-        <option key={6} value="dijkstra">
+        <option key={4} value="dijkstra">
           Dijkstra's Shortest Path First algorithm
         </option>,
-        <option key={7} value="qbbf">
+        <option key={5} value="qbbf">
           Queue-based Bellman-Ford algorithm (shortest path)
         </option>,
-        <option key={8} value="fw">
+        <option key={6} value="fw">
           Floyd-Warshall algorithm (shortest path)
         </option>,
       ];
