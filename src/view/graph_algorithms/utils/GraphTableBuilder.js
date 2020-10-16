@@ -19,7 +19,16 @@ function getCellStringForHTML(item) {
   else return <>{item}</>;
 }
 
-function buildAttributeCells(attr, vertices) {
+function getColorizerDivIfChanged(item, previousItem, innerHTML) {
+  if (previousItem !== null && item !== previousItem) {
+    console.log(item);
+    console.log(previousItem);
+    return <span className="changed-table-item">{innerHTML}</span>;
+  }
+  return <>{innerHTML}</>;
+}
+
+function buildAttributeCells(attr, vertices, previousVertices = null) {
   let attrCells = [];
   if (attr === "indexOfVertex") {
     for (let i = 0; i < vertices.length; ++i) {
@@ -41,7 +50,13 @@ function buildAttributeCells(attr, vertices) {
           {
             key: v4(),
           },
-          getCellStringForHTML(vertices[i][attr])
+          getColorizerDivIfChanged(
+            getCellStringForHTML(vertices[i][attr]).props.children,
+            previousVertices
+              ? getCellStringForHTML(previousVertices[i][attr]).props.children
+              : null,
+            getCellStringForHTML(vertices[i][attr])
+          )
         )
       );
     }
@@ -57,7 +72,7 @@ function buildBFSHead(vertices) {
     .concat(buildAttributeCells("indexOfVertex", vertices));
 }
 
-function buildBFSRowCells(currentStep) {
+function buildBFSRowCells(currentStep, previousStep = null) {
   return [
     React.createElement(
       "td",
@@ -65,7 +80,13 @@ function buildBFSRowCells(currentStep) {
       currentStep.currentVertex < 0 ? " " : currentStep.currentVertex
     ),
   ]
-    .concat(buildAttributeCells("depth", currentStep.vertices))
+    .concat(
+      buildAttributeCells(
+        "depth",
+        currentStep.vertices,
+        previousStep ? previousStep.vertices : null
+      )
+    )
     .concat([
       React.createElement(
         "td",
@@ -74,10 +95,16 @@ function buildBFSRowCells(currentStep) {
       ),
     ])
     .concat([React.createElement("td", { key: v4() }, " ")])
-    .concat(buildAttributeCells("parent", currentStep.vertices));
+    .concat(
+      buildAttributeCells(
+        "parent",
+        currentStep.vertices,
+        previousStep ? previousStep.vertices : null
+      )
+    );
 }
 
-function buildDFSAttributeCells(vertices) {
+function buildDFSAttributeCells(vertices, previousVertices = null) {
   let attrCells = [];
   for (let i = 0; i < vertices.length; ++i) {
     attrCells.push(
@@ -87,16 +114,24 @@ function buildDFSAttributeCells(vertices) {
           key: v4(),
         },
         <>
-          {getCellStringForHTML(
-            vertices[i]["discoveryTime"] === 0
-              ? null
-              : vertices[i]["discoveryTime"]
+          {getColorizerDivIfChanged(
+            vertices[i]["discoveryTime"],
+            previousVertices ? previousVertices[i]["discoveryTime"] : null,
+            getCellStringForHTML(
+              vertices[i]["discoveryTime"] === 0
+                ? null
+                : vertices[i]["discoveryTime"]
+            )
           )}
           /
-          {getCellStringForHTML(
-            vertices[i]["finishingTime"] === 0
-              ? null
-              : vertices[i]["finishingTime"]
+          {getColorizerDivIfChanged(
+            vertices[i]["finishingTime"],
+            previousVertices ? previousVertices[i]["finishingTime"] : null,
+            getCellStringForHTML(
+              vertices[i]["finishingTime"] === 0
+                ? null
+                : vertices[i]["finishingTime"]
+            )
           )}
         </>
       )
@@ -111,9 +146,12 @@ function buildDFSHead(vertices) {
   ]);
 }
 
-function buildDFSRowCells(currentStep) {
+function buildDFSRowCells(currentStep, previousStep = null) {
   return [React.createElement("td", { key: v4() }, "Discovery/Finish")].concat(
-    buildDFSAttributeCells(currentStep.vertices)
+    buildDFSAttributeCells(
+      currentStep.vertices,
+      previousStep !== null ? previousStep.vertices : null
+    )
   );
 }
 
@@ -228,7 +266,7 @@ function buildPrimHead(vertices) {
     .concat(buildAttributeCells("indexOfVertex", vertices));
 }
 
-function buildPrimRowCells(currentStep) {
+function buildPrimRowCells(currentStep, previousStep = null) {
   return [
     React.createElement(
       "td",
@@ -236,16 +274,28 @@ function buildPrimRowCells(currentStep) {
       currentStep.currentVertex < 0 ? "init" : currentStep.currentVertex
     ),
   ]
-    .concat(buildAttributeCells("cost", currentStep.vertices))
+    .concat(
+      buildAttributeCells(
+        "cost",
+        currentStep.vertices,
+        previousStep ? previousStep.vertices : null
+      )
+    )
     .concat([React.createElement("td", { key: v4() }, " ")])
-    .concat(buildAttributeCells("parent", currentStep.vertices));
+    .concat(
+      buildAttributeCells(
+        "parent",
+        currentStep.vertices,
+        previousStep ? previousStep.vertices : null
+      )
+    );
 }
 
 function buildQBBFHead(vertices) {
   return buildBFSHead(vertices).concat([<th key={v4()}>round</th>]);
 }
 
-function buildQBBFRowCells(currentStep) {
+function buildQBBFRowCells(currentStep, previousStep = null) {
   return [
     React.createElement(
       "td",
@@ -253,7 +303,13 @@ function buildQBBFRowCells(currentStep) {
       currentStep.currentVertex < 0 ? "init" : currentStep.currentVertex
     ),
   ]
-    .concat(buildAttributeCells("distance", currentStep.vertices))
+    .concat(
+      buildAttributeCells(
+        "distance",
+        currentStep.vertices,
+        previousStep ? previousStep.vertices : null
+      )
+    )
     .concat([
       React.createElement(
         "td",
@@ -262,8 +318,24 @@ function buildQBBFRowCells(currentStep) {
       ),
     ])
     .concat([React.createElement("td", { key: v4() }, " ")])
-    .concat(buildAttributeCells("parent", currentStep.vertices))
-    .concat([React.createElement("td", { key: v4() }, currentStep.round)]);
+    .concat(
+      buildAttributeCells(
+        "parent",
+        currentStep.vertices,
+        previousStep ? previousStep.vertices : null
+      )
+    )
+    .concat([
+      React.createElement(
+        "td",
+        { key: v4() },
+        getColorizerDivIfChanged(
+          currentStep.round,
+          previousStep ? previousStep.round : null,
+          currentStep.round
+        )
+      ),
+    ]);
 }
 
 function buildDijkstraHead(vertices) {
@@ -274,7 +346,7 @@ function buildDijkstraHead(vertices) {
     .concat(buildAttributeCells("indexOfVertex", vertices));
 }
 
-function buildDijkstraRowCells(currentStep) {
+function buildDijkstraRowCells(currentStep, previousStep = null) {
   return [
     React.createElement(
       "td",
@@ -282,12 +354,24 @@ function buildDijkstraRowCells(currentStep) {
       currentStep.step === -1 ? "init" : currentStep.step === -2 ? "end" : " "
     ),
   ]
-    .concat(buildAttributeCells("distance", currentStep.vertices))
+    .concat(
+      buildAttributeCells(
+        "distance",
+        currentStep.vertices,
+        previousStep ? previousStep.vertices : null
+      )
+    )
     .concat([
       React.createElement("td", { key: v4() }, currentStep.currentVertex),
     ])
     .concat([React.createElement("td", { key: v4() }, " ")])
-    .concat(buildAttributeCells("parent", currentStep.vertices));
+    .concat(
+      buildAttributeCells(
+        "parent",
+        currentStep.vertices,
+        previousStep ? previousStep.vertices : null
+      )
+    );
 }
 
 function buildFWHeadNames(vertices) {
@@ -302,7 +386,7 @@ function buildFWHeadNames(vertices) {
   ]);
 }
 
-function buildFWRow(currentStep, indexOfRow) {
+function buildFWRow(currentStep, indexOfRow, previousStep = null) {
   let distanceRowCells = [];
   let parentRowCells = [];
   distanceRowCells[0] = <th key={v4()}>{indexOfRow}</th>;
@@ -310,12 +394,28 @@ function buildFWRow(currentStep, indexOfRow) {
   for (let i = 0; i < currentStep.vertices.length; ++i) {
     distanceRowCells.push(
       <td key={v4()}>
-        {getCellStringForHTML(currentStep.distanceMatrix[indexOfRow][i])}
+        {getColorizerDivIfChanged(
+          getCellStringForHTML(currentStep.distanceMatrix[indexOfRow][i]).props
+            .children,
+          previousStep
+            ? getCellStringForHTML(previousStep.distanceMatrix[indexOfRow][i])
+                .props.children
+            : null,
+          getCellStringForHTML(currentStep.distanceMatrix[indexOfRow][i])
+        )}
       </td>
     );
     parentRowCells.push(
       <td key={v4()}>
-        {getCellStringForHTML(currentStep.parentMatrix[indexOfRow][i])}
+        {getColorizerDivIfChanged(
+          getCellStringForHTML(currentStep.parentMatrix[indexOfRow][i]).props
+            .children,
+          previousStep
+            ? getCellStringForHTML(previousStep.parentMatrix[indexOfRow][i])
+                .props.children
+            : null,
+          getCellStringForHTML(currentStep.parentMatrix[indexOfRow][i])
+        )}
       </td>
     );
   }
@@ -323,10 +423,10 @@ function buildFWRow(currentStep, indexOfRow) {
   return distanceRowCells.concat(parentRowCells);
 }
 
-function buildFWRowCells(currentStep) {
+function buildFWRowCells(currentStep, previousStep = null) {
   let fwRows = [];
   for (let i = 0; i < currentStep.vertices.length; ++i) {
-    fwRows.push(<tr key={v4()}>{buildFWRow(currentStep, i)}</tr>);
+    fwRows.push(<tr key={v4()}>{buildFWRow(currentStep, i, previousStep)}</tr>);
   }
   return fwRows;
 }
@@ -382,27 +482,40 @@ function buildFWTable(algorithmSteps) {
       {React.createElement(
         "tbody",
         { key: v4() },
-        buildFWRowCells(algorithmSteps.steps[algorithmSteps.currentStepIndex])
+        buildFWRowCells(
+          algorithmSteps.steps[algorithmSteps.currentStepIndex],
+          algorithmSteps.currentStepIndex > 0
+            ? algorithmSteps.steps[algorithmSteps.currentStepIndex - 1]
+            : null
+        )
       )}
     </>
   );
 }
 
-function buildRows(algorithmSteps, functionRow) {
+function buildRows(algorithmSteps, functionRow, fromStepIndex = 0) {
   let rows = [];
-  for (let i = 0; i <= algorithmSteps.currentStepIndex; ++i) {
+  for (let i = fromStepIndex; i <= algorithmSteps.currentStepIndex; ++i) {
     rows.push(
       React.createElement(
         "tr",
         { key: v4() },
-        functionRow(algorithmSteps.steps[i])
+        functionRow(
+          algorithmSteps.steps[i],
+          i > 0 ? algorithmSteps.steps[i - 1] : null
+        )
       )
     );
   }
   return rows;
 }
 
-function buildTableContent(algorithmSteps, functionHeader, functionBodyRow) {
+function buildTableContent(
+  algorithmSteps,
+  functionHeader,
+  functionBodyRow,
+  buildOnlyCurrentRowWithChanges = false
+) {
   return (
     <>
       {React.createElement(
@@ -414,7 +527,13 @@ function buildTableContent(algorithmSteps, functionHeader, functionBodyRow) {
           functionHeader(algorithmSteps.steps[0].vertices)
         )
       )}
-      <tbody key={v4()}>{buildRows(algorithmSteps, functionBodyRow)}</tbody>
+      <tbody key={v4()}>
+        {buildRows(
+          algorithmSteps,
+          functionBodyRow,
+          buildOnlyCurrentRowWithChanges ? algorithmSteps.currentStepIndex : 0
+        )}
+      </tbody>
     </>
   );
 }
@@ -423,7 +542,12 @@ function chooseTableTypeAndRender(algorithmSteps) {
   if (algorithmSteps.algorithmType === AlgorithmType.BFS)
     return buildTableContent(algorithmSteps, buildBFSHead, buildBFSRowCells);
   else if (algorithmSteps.algorithmType === AlgorithmType.DFS)
-    return buildTableContent(algorithmSteps, buildDFSHead, buildDFSRowCells);
+    return buildTableContent(
+      algorithmSteps,
+      buildDFSHead,
+      buildDFSRowCells,
+      true
+    );
   else if (algorithmSteps.algorithmType === AlgorithmType.PRIM)
     return buildTableContent(algorithmSteps, buildPrimHead, buildPrimRowCells);
   else if (algorithmSteps.algorithmType === AlgorithmType.QBBF)
