@@ -36,7 +36,8 @@ class GraphPlayDrawingBoard extends GraphBaseDrawingBoard {
           this.hasChosenEdges() &&
           this.isEdgeInChosenEdges(this.props.graph.adjList.get(i)[j])
         ) {
-          currentDrawColor = Color.DARK_RED;
+          if (currentDrawColor === Color.BLACK)
+            currentDrawColor = Color.DARK_RED;
           this.ctx.lineWidth = 3;
         }
         this.ctx.fillStyle = currentDrawColor;
