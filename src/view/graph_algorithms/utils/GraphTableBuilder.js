@@ -508,6 +508,58 @@ function buildFWTable(algorithmSteps) {
     </>
   );
 }
+function buildFWIndexTableHead() {
+  return [<th key={v4()}>k</th>]
+    .concat([<th key={v4()}>i</th>])
+    .concat([<th key={v4()}>j</th>]);
+}
+function buildFWIndexTableRowCells(currentStep, previousStep = null) {
+  return [
+    <td key={v4()}>
+      {getColorizerDivIfChanged(
+        currentStep.k !== null
+          ? currentStep.vertices[currentStep.k].vertexNumber
+          : " ",
+        previousStep && previousStep.k !== null
+          ? previousStep.vertices[previousStep.k].vertexNumber
+          : " ",
+        currentStep.k !== null
+          ? currentStep.vertices[currentStep.k].vertexNumber
+          : " "
+      )}
+    </td>,
+  ]
+    .concat([
+      <td key={v4()}>
+        {getColorizerDivIfChanged(
+          currentStep.i !== null
+            ? currentStep.vertices[currentStep.i].vertexNumber
+            : " ",
+          previousStep && previousStep.i !== null
+            ? previousStep.vertices[previousStep.i].vertexNumber
+            : " ",
+          currentStep.i !== null
+            ? currentStep.vertices[currentStep.i].vertexNumber
+            : " "
+        )}
+      </td>,
+    ])
+    .concat([
+      <td key={v4()}>
+        {getColorizerDivIfChanged(
+          currentStep.j !== null
+            ? currentStep.vertices[currentStep.j].vertexNumber
+            : " ",
+          previousStep && previousStep.j !== null
+            ? previousStep.vertices[previousStep.j].vertexNumber
+            : " ",
+          currentStep.j !== null
+            ? currentStep.vertices[currentStep.j].vertexNumber
+            : " "
+        )}
+      </td>,
+    ]);
+}
 
 function buildRows(algorithmSteps, functionRow, fromStepIndex = 0) {
   let rows = [];
@@ -556,49 +608,87 @@ function buildTableContent(
 
 function chooseTableTypeAndRender(algorithmSteps) {
   if (algorithmSteps.algorithmType === AlgorithmType.BFS)
-    return buildTableContent(algorithmSteps, buildBFSHead, buildBFSRowCells);
+    return (
+      <table className="graph-table">
+        {buildTableContent(algorithmSteps, buildBFSHead, buildBFSRowCells)}
+      </table>
+    );
   else if (algorithmSteps.algorithmType === AlgorithmType.DFS)
-    return buildTableContent(
-      algorithmSteps,
-      buildDFSHead,
-      buildDFSRowCells,
-      true
+    return (
+      <table className="graph-table">
+        {buildTableContent(
+          algorithmSteps,
+          buildDFSHead,
+          buildDFSRowCells,
+          true
+        )}
+      </table>
     );
   else if (algorithmSteps.algorithmType === AlgorithmType.PRIM)
-    return buildTableContent(algorithmSteps, buildPrimHead, buildPrimRowCells);
+    return (
+      <table className="graph-table">
+        {buildTableContent(algorithmSteps, buildPrimHead, buildPrimRowCells)}
+      </table>
+    );
   else if (algorithmSteps.algorithmType === AlgorithmType.QBBF)
-    return buildTableContent(algorithmSteps, buildQBBFHead, buildQBBFRowCells);
+    return (
+      <table className="graph-table">
+        {buildTableContent(algorithmSteps, buildQBBFHead, buildQBBFRowCells)}
+      </table>
+    );
   else if (algorithmSteps.algorithmType === AlgorithmType.DIJKSTRA)
-    return buildTableContent(
-      algorithmSteps,
-      buildDijkstraHead,
-      buildDijkstraRowCells
+    return (
+      <table className="graph-table">
+        {buildTableContent(
+          algorithmSteps,
+          buildDijkstraHead,
+          buildDijkstraRowCells
+        )}
+      </table>
     );
   else if (algorithmSteps.algorithmType === AlgorithmType.TOPO)
-    return buildTableContent(algorithmSteps, buildTOPOHead, buildTOPORowCells);
+    return (
+      <table className="graph-table">
+        {buildTableContent(algorithmSteps, buildTOPOHead, buildTOPORowCells)}
+      </table>
+    );
   else if (algorithmSteps.algorithmType === AlgorithmType.TOPO_DFS)
-    return buildTableContent(
-      algorithmSteps,
-      buildTOPOWithDFSHead,
-      buildTOPOWithDFSRowCells
+    return (
+      <table className="graph-table">
+        {buildTableContent(
+          algorithmSteps,
+          buildTOPOWithDFSHead,
+          buildTOPOWithDFSRowCells
+        )}
+      </table>
     );
   else if (algorithmSteps.algorithmType === AlgorithmType.KRUSKAL)
-    return buildTableContent(
-      algorithmSteps,
-      buildKruskalHead,
-      buildKruskalRowCells
+    return (
+      <table className="graph-table">
+        {buildTableContent(
+          algorithmSteps,
+          buildKruskalHead,
+          buildKruskalRowCells
+        )}
+      </table>
     );
   else if (algorithmSteps.algorithmType === AlgorithmType.FW)
-    return buildFWTable(algorithmSteps);
-  else return <></>;
-}
-
-function innerBuildTable(algorithmSteps) {
-  return (
-    <table className="graph-table">
-      {chooseTableTypeAndRender(algorithmSteps)}
-    </table>
-  );
+    return (
+      <>
+        <table className="graph-table">
+          {buildTableContent(
+            algorithmSteps,
+            buildFWIndexTableHead,
+            buildFWIndexTableRowCells,
+            true
+          )}
+        </table>
+        <table className="second-graph-table">
+          {buildFWTable(algorithmSteps)}
+        </table>
+      </>
+    );
+  else return <table className="graph-table">{}</table>;
 }
 
 function buildTable(algorithmSteps) {
@@ -615,7 +705,7 @@ function buildTable(algorithmSteps) {
       AlgorithmType.FW,
     ].includes(algorithmSteps.algorithmType)
   ) {
-    return <>{innerBuildTable(algorithmSteps)}</>;
+    return <>{chooseTableTypeAndRender(algorithmSteps)}</>;
   }
 }
 
