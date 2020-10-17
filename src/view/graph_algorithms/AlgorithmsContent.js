@@ -203,7 +203,7 @@ class AlgorithmsContent extends React.Component {
     this.normalGraph.addVertex(this.state.vertices.length);
     this.directedGraph.addVertex(this.state.vertices.length);
     const vertices = this.state.vertices;
-    vertices.push(new Vertex(position));
+    vertices.push(new Vertex(vertices.length + 1, position));
     this.setState({
       vertices: vertices,
       graph: this.state.directed ? this.directedGraph : this.normalGraph,
@@ -293,6 +293,9 @@ class AlgorithmsContent extends React.Component {
   deleteSelectedVertex() {
     const vertices = this.state.vertices;
     vertices.splice(this.state.indexOfSelectedVertex, 1);
+    for (let i = 0; i < vertices.length; ++i) {
+      vertices[i].vertexNumber = i + 1;
+    }
     this.directedGraph.removeVertex(this.state.indexOfSelectedVertex);
     this.normalGraph.removeVertex(this.state.indexOfSelectedVertex);
     this.setState({
@@ -515,7 +518,7 @@ class AlgorithmsContent extends React.Component {
           </div>
           <div className="algorithms-content-form">
             <GraphForm
-              noOfVertices={this.state.vertices.length}
+              vertices={this.state.vertices}
               directed={this.state.directed}
               selectedVertex={this.state.indexOfSelectedVertex}
               selectedAlgorithm={this.state.algorithm}

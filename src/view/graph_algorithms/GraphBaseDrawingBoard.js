@@ -52,12 +52,16 @@ class GraphBaseDrawingBoard extends React.Component {
     this.ctx.textBaseline = "alphabetic";
   }
 
-  drawNumberOfVertex(numOfVertex, vertex) {
+  drawNumberOfVertex(vertex) {
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";
     this.setContextFontSize(20);
 
-    this.ctx.fillText(numOfVertex, vertex.position.x, vertex.position.y);
+    this.ctx.fillText(
+      vertex.vertexNumber,
+      vertex.position.x,
+      vertex.position.y
+    );
 
     this.setContextFontSize();
     this.ctx.textAlign = "start";
@@ -80,7 +84,7 @@ class GraphBaseDrawingBoard extends React.Component {
       this.ctx.fillStyle = this.props.vertices[i].color;
       this.ctx.fill();
       this.ctx.fillStyle = Color.BLACK;
-      this.drawNumberOfVertex(i, this.props.vertices[i]);
+      this.drawNumberOfVertex(this.props.vertices[i]);
       this.drawTouchingTimesOfVertex(this.props.vertices[i]);
     }
   }

@@ -26,6 +26,7 @@ export class Edge {
 
 export class Vertex {
   constructor(
+    vertexNumber = null,
     position = new Position(),
     parent = null,
     color = Color.PALE_RED,
@@ -35,10 +36,11 @@ export class Vertex {
     discoveryTime = 0,
     finishingTime = 0
   ) {
+    this.vertexNumber = vertexNumber;
     this.position = position;
-    this.depth = depth;
     this.parent = parent;
     this.color = color;
+    this.depth = depth;
     this.cost = cost;
     this.distance = distance;
     this.discoveryTime = discoveryTime;

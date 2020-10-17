@@ -38,7 +38,7 @@ function buildAttributeCells(attr, vertices, previousVertices = null) {
           {
             key: v4(),
           },
-          i
+          vertices[i].vertexNumber
         )
       );
     }
@@ -77,7 +77,9 @@ function buildBFSRowCells(currentStep, previousStep = null) {
     React.createElement(
       "td",
       { key: v4() },
-      currentStep.currentVertex < 0 ? " " : currentStep.currentVertex
+      currentStep.currentVertex < 0
+        ? " "
+        : currentStep.vertices[currentStep.currentVertex].vertexNumber
     ),
   ]
     .concat(
@@ -271,7 +273,9 @@ function buildPrimRowCells(currentStep, previousStep = null) {
     React.createElement(
       "td",
       { key: v4() },
-      currentStep.currentVertex < 0 ? "init" : currentStep.currentVertex
+      currentStep.currentVertex < 0
+        ? "init"
+        : currentStep.vertices[currentStep.currentVertex].vertexNumber
     ),
   ]
     .concat(
@@ -300,7 +304,9 @@ function buildQBBFRowCells(currentStep, previousStep = null) {
     React.createElement(
       "td",
       { key: v4() },
-      currentStep.currentVertex < 0 ? "init" : currentStep.currentVertex
+      currentStep.currentVertex < 0
+        ? "init"
+        : currentStep.vertices[currentStep.currentVertex].vertexNumber
     ),
   ]
     .concat(
@@ -389,8 +395,12 @@ function buildFWHeadNames(vertices) {
 function buildFWRow(currentStep, indexOfRow, previousStep = null) {
   let distanceRowCells = [];
   let parentRowCells = [];
-  distanceRowCells[0] = <th key={v4()}>{indexOfRow}</th>;
-  parentRowCells[0] = <th key={v4()}>{indexOfRow}</th>;
+  distanceRowCells[0] = (
+    <th key={v4()}>{currentStep.vertices[indexOfRow].vertexNumber}</th>
+  );
+  parentRowCells[0] = (
+    <th key={v4()}>{currentStep.vertices[indexOfRow].vertexNumber}</th>
+  );
   for (let i = 0; i < currentStep.vertices.length; ++i) {
     distanceRowCells.push(
       <td key={v4()}>

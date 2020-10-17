@@ -34,6 +34,17 @@ class GraphContent extends React.Component {
   setUpPlayableContent(playableContent) {
     for (let i = 0; i < playableContent.steps.length; ++i) {
       for (let j = 0; j < playableContent.steps[i].vertices.length; ++j) {
+        playableContent.steps[i].vertices[j].vertexNumber = this.savedVertices[
+          j
+        ].vertexNumber;
+        playableContent.steps[i].vertices[j].position = this.savedVertices[
+          j
+        ].position;
+        if (playableContent.steps[i].vertices[j].parent !== null) {
+          playableContent.steps[i].vertices[j].parent = this.savedVertices[
+            playableContent.steps[i].vertices[j].parent
+          ].vertexNumber;
+        }
         playableContent.steps[i].vertices[j].depth = this.convertToValue(
           playableContent.steps[i].vertices[j].depth
         );
@@ -43,6 +54,113 @@ class GraphContent extends React.Component {
         playableContent.steps[i].vertices[j].distance = this.convertToValue(
           playableContent.steps[i].vertices[j].distance
         );
+      }
+
+      if (playableContent.steps[i].kruskalSets) {
+        for (let j = 0; j < playableContent.steps[i].kruskalSets.length; ++j) {
+          for (
+            let k = 0;
+            k < playableContent.steps[i].kruskalSets[j].length;
+            ++k
+          ) {
+            playableContent.steps[i].kruskalSets[j][k] = this.savedVertices[
+              playableContent.steps[i].kruskalSets[j][k]
+            ].vertexNumber;
+          }
+        }
+      }
+      if (playableContent.steps[i].sortedEdges) {
+        for (
+          let j = 0;
+          j < playableContent.steps[i].sortedEdges.items.length;
+          ++j
+        ) {
+          console.log(playableContent.steps[i].sortedEdges.items[j]);
+          playableContent.steps[i].sortedEdges.items[
+            j
+          ].fromVertex = this.savedVertices[
+            playableContent.steps[i].sortedEdges.items[j].fromVertex
+          ].vertexNumber;
+
+          playableContent.steps[i].sortedEdges.items[
+            j
+          ].toVertex = this.savedVertices[
+            playableContent.steps[i].sortedEdges.items[j].toVertex
+          ].vertexNumber;
+        }
+      }
+      if (playableContent.steps[i].chosenEdges) {
+        for (let j = 0; j < playableContent.steps[i].chosenEdges.length; ++j) {
+          console.log(playableContent.steps[i].chosenEdges[j]);
+          playableContent.steps[i].chosenEdges[
+            j
+          ].fromVertex = this.savedVertices[
+            playableContent.steps[i].chosenEdges[j].fromVertex
+          ].vertexNumber;
+
+          playableContent.steps[i].chosenEdges[j].toVertex = this.savedVertices[
+            playableContent.steps[i].chosenEdges[j].toVertex
+          ].vertexNumber;
+        }
+      }
+      if (playableContent.steps[i].topologicalOrder) {
+        for (
+          let j = 0;
+          j < playableContent.steps[i].topologicalOrder.length;
+          ++j
+        ) {
+          playableContent.steps[i].topologicalOrder[j] = this.savedVertices[
+            playableContent.steps[i].topologicalOrder[j]
+          ].vertexNumber;
+        }
+      }
+      if (playableContent.steps[i].stack) {
+        for (let j = 0; j < playableContent.steps[i].stack.items.length; ++j) {
+          console.log(playableContent.steps[i].stack.items[j]);
+          playableContent.steps[i].stack.items[j] = this.savedVertices[
+            playableContent.steps[i].stack.items[j]
+          ].vertexNumber;
+        }
+      }
+      if (playableContent.steps[i].queue) {
+        for (let j = 0; j < playableContent.steps[i].queue.items.length; ++j) {
+          console.log(playableContent.steps[i].queue.items[j]);
+          playableContent.steps[i].queue.items[j] = this.savedVertices[
+            playableContent.steps[i].queue.items[j]
+          ].vertexNumber;
+        }
+      }
+      if (playableContent.steps[i].distanceMatrix) {
+        for (
+          let j = 0;
+          j < playableContent.steps[i].distanceMatrix.length;
+          ++j
+        ) {
+          for (
+            let k = 0;
+            k < playableContent.steps[i].distanceMatrix[j].length;
+            ++k
+          ) {
+            if (playableContent.steps[i].distanceMatrix[j][k] === null) {
+              playableContent.steps[i].distanceMatrix[j][k] = Infinity;
+            }
+          }
+        }
+      }
+      if (playableContent.steps[i].parentMatrix) {
+        for (let j = 0; j < playableContent.steps[i].parentMatrix.length; ++j) {
+          for (
+            let k = 0;
+            k < playableContent.steps[i].parentMatrix[j].length;
+            ++k
+          ) {
+            if (playableContent.steps[i].parentMatrix[j][k] !== null) {
+              playableContent.steps[i].parentMatrix[j][k] = this.savedVertices[
+                playableContent.steps[i].parentMatrix[j][k]
+              ].vertexNumber;
+            }
+          }
+        }
       }
     }
   }
@@ -79,36 +197,6 @@ class GraphContent extends React.Component {
     copiedGraph.adjList = new Map(graph.adjList);
 
     this.setUpPlayableContent(playableContent);
-    for (let i = 0; i < vertices.length; ++i) {
-      vertices[i].depth =
-        playableContent.steps[playableContent.currentStepIndex].vertices[
-          i
-        ].depth;
-      vertices[i].parent =
-        playableContent.steps[playableContent.currentStepIndex].vertices[
-          i
-        ].parent;
-      vertices[i].color =
-        playableContent.steps[playableContent.currentStepIndex].vertices[
-          i
-        ].color;
-      vertices[i].cost =
-        playableContent.steps[playableContent.currentStepIndex].vertices[
-          i
-        ].cost;
-      vertices[i].distance =
-        playableContent.steps[playableContent.currentStepIndex].vertices[
-          i
-        ].distance;
-      vertices[i].discoveryTime =
-        playableContent.steps[playableContent.currentStepIndex].vertices[
-          i
-        ].discoveryTime;
-      vertices[i].finishingTime =
-        playableContent.steps[playableContent.currentStepIndex].vertices[
-          i
-        ].finishingTime;
-    }
 
     this.setState({
       vertices: vertices,
@@ -117,41 +205,13 @@ class GraphContent extends React.Component {
     });
   }
 
-  copyVerticesFromStep(stepIndex) {
-    const vertices = this.state.vertices;
-    for (let i = 0; i < vertices.length; ++i) {
-      vertices[i].depth = this.convertToValue(
-        this.state.playableContent.steps[stepIndex].vertices[i].depth
-      );
-      vertices[i].parent = this.state.playableContent.steps[stepIndex].vertices[
-        i
-      ].parent;
-      vertices[i].color = this.state.playableContent.steps[stepIndex].vertices[
-        i
-      ].color;
-      vertices[i].cost = this.convertToValue(
-        this.state.playableContent.steps[stepIndex].vertices[i].cost
-      );
-      vertices[i].distance = this.convertToValue(
-        this.state.playableContent.steps[stepIndex].vertices[i].distance
-      );
-      vertices[i].discoveryTime = this.state.playableContent.steps[
-        stepIndex
-      ].vertices[i].discoveryTime;
-      vertices[i].finishingTime = this.state.playableContent.steps[
-        stepIndex
-      ].vertices[i].finishingTime;
-    }
-    this.setState({ vertices: vertices });
-  }
-
   handleNextStep() {
     if (
       this.state.playableContent.currentStepIndex <
       this.state.playableContent.steps.length - 1
     ) {
       const playableContent = this.state.playableContent;
-      this.copyVerticesFromStep(++playableContent.currentStepIndex);
+      ++playableContent.currentStepIndex;
       this.setState({
         playableContent: playableContent,
       });
@@ -161,7 +221,7 @@ class GraphContent extends React.Component {
   handlePrevStep() {
     if (this.state.playableContent.currentStepIndex > 0) {
       const playableContent = this.state.playableContent;
-      this.copyVerticesFromStep(--playableContent.currentStepIndex);
+      --playableContent.currentStepIndex;
       this.setState({
         playableContent: playableContent,
       });
@@ -184,7 +244,11 @@ class GraphContent extends React.Component {
           />
         </div>
         <GraphPlayAlgorithm
-          vertices={this.state.vertices}
+          vertices={
+            this.state.playableContent.steps[
+              this.state.playableContent.currentStepIndex
+            ].vertices
+          }
           graph={this.state.graph}
           algorithmSteps={this.state.playableContent}
           handleNextStep={() => this.handleNextStep()}

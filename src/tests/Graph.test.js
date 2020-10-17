@@ -59,6 +59,7 @@ describe("Test Class: Vertex", () => {
 
   test("Test Function: constructor (with weight)", () => {
     const vertex = new Vertex(
+      1,
       new Position(50, 204),
       5,
       Color.GREEN,
@@ -68,6 +69,7 @@ describe("Test Class: Vertex", () => {
       5,
       12
     );
+    expect(vertex.vertexNumber).toEqual(1);
     expect(vertex.position).toEqual(new Position(50, 204));
     expect(vertex.parent).toBe(5);
     expect(vertex.color).toBe(Color.GREEN);

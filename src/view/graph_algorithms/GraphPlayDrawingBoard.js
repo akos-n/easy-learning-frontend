@@ -12,14 +12,24 @@ class GraphPlayDrawingBoard extends GraphBaseDrawingBoard {
     );
   }
 
+  getIndexOfVertexNumber(vertexNumber) {
+    for (let i = 0; i < this.props.vertices.length; ++i) {
+      if (this.props.vertices[i].vertexNumber === vertexNumber) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
   isEdgeInChosenEdges(edge) {
     if (!this.hasChosenEdges()) return true;
     for (let currentEdge of this.props.algorithmSteps.steps[
       this.props.algorithmSteps.currentStepIndex
     ].chosenEdges) {
       if (
-        edge.toVertex === currentEdge.toVertex &&
-        edge.fromVertex === currentEdge.fromVertex &&
+        edge.toVertex === this.getIndexOfVertexNumber(currentEdge.toVertex) &&
+        edge.fromVertex ===
+          this.getIndexOfVertexNumber(currentEdge.fromVertex) &&
         edge.weight === currentEdge.weight
       ) {
         return true;
@@ -33,8 +43,9 @@ class GraphPlayDrawingBoard extends GraphBaseDrawingBoard {
       this.props.algorithmSteps.currentStepIndex
     ].chosenEdges) {
       if (
-        edge.toVertex === currentEdge.toVertex &&
-        edge.fromVertex === currentEdge.fromVertex &&
+        edge.toVertex === this.getIndexOfVertexNumber(currentEdge.toVertex) &&
+        edge.fromVertex ===
+          this.getIndexOfVertexNumber(currentEdge.fromVertex) &&
         edge.weight === currentEdge.weight
       ) {
         return currentEdge.color !== Color.BLACK

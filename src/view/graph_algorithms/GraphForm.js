@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import "./GraphForm.scss";
 
 class GraphForm extends React.Component {
@@ -50,7 +49,7 @@ class GraphForm extends React.Component {
 
   buildSelectedVertexOptions() {
     let options = [];
-    for (let i = 0; i < this.props.noOfVertices; ++i) {
+    for (let i = 0; i < this.props.vertices.length; ++i) {
       options.push(
         React.createElement(
           "option",
@@ -58,7 +57,7 @@ class GraphForm extends React.Component {
             key: i,
             value: i,
           },
-          i
+          this.props.vertices[i].vertexNumber
         )
       );
     }
@@ -113,13 +112,5 @@ class GraphForm extends React.Component {
     );
   }
 }
-
-GraphForm.propTypes = {
-  noOfVertices: PropTypes.number,
-};
-
-GraphForm.defaultProps = {
-  noOfVertices: 0,
-};
 
 export { GraphForm as default };
