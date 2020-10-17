@@ -371,7 +371,9 @@ function buildDijkstraRowCells(currentStep, previousStep = null) {
       React.createElement(
         "td",
         { key: v4() },
-        currentStep.vertices[currentStep.currentVertex].vertexNumber
+        currentStep.currentVertex !== null
+          ? currentStep.vertices[currentStep.currentVertex].vertexNumber
+          : null
       ),
     ])
     .concat([React.createElement("td", { key: v4() }, " ")])
