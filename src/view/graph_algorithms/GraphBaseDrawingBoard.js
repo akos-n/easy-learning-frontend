@@ -28,7 +28,7 @@ class GraphBaseDrawingBoard extends React.Component {
   drawTouchingTimesOfVertex(vertex) {
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";
-    this.setContextFontSize(16);
+    this.setContextFont(16);
     if (vertex.hasOwnProperty("discoveryTime")) {
       if (vertex.discoveryTime !== 0) {
         this.ctx.fillText(
@@ -47,7 +47,7 @@ class GraphBaseDrawingBoard extends React.Component {
         );
       }
     }
-    this.setContextFontSize();
+    this.setContextFont();
     this.ctx.textAlign = "start";
     this.ctx.textBaseline = "alphabetic";
   }
@@ -55,7 +55,7 @@ class GraphBaseDrawingBoard extends React.Component {
   drawNumberOfVertex(vertex) {
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";
-    this.setContextFontSize(20);
+    this.setContextFont(20);
 
     this.ctx.fillText(
       vertex.vertexNumber,
@@ -63,9 +63,16 @@ class GraphBaseDrawingBoard extends React.Component {
       vertex.position.y
     );
 
-    this.setContextFontSize();
+    this.setContextFont();
     this.ctx.textAlign = "start";
     this.ctx.textBaseline = "alphabetic";
+  }
+
+  drawDatasOfVertices() {
+    for (let i = 0; i < this.props.vertices.length; ++i) {
+      this.drawNumberOfVertex(this.props.vertices[i]);
+      this.drawTouchingTimesOfVertex(this.props.vertices[i]);
+    }
   }
 
   drawVertices() {
@@ -84,8 +91,6 @@ class GraphBaseDrawingBoard extends React.Component {
       this.ctx.fillStyle = this.props.vertices[i].color;
       this.ctx.fill();
       this.ctx.fillStyle = Color.BLACK;
-      this.drawNumberOfVertex(this.props.vertices[i]);
-      this.drawTouchingTimesOfVertex(this.props.vertices[i]);
     }
   }
 
@@ -136,19 +141,18 @@ class GraphBaseDrawingBoard extends React.Component {
     }
   }
 
-  setContextFontSize(px = 12) {
-    let fontArgs = this.ctx.font.split(" ");
-    this.ctx.font = px + "px " + fontArgs[fontArgs.length - 1];
+  setContextFont(px = 12) {
+    this.ctx.font = "bold " + px.toString() + "px Arial sans-serif";
   }
 
   drawWeightOfEdge(begPos, endPos, weight) {
-    this.setContextFontSize(16);
+    this.setContextFont(16);
     this.ctx.fillText(
       weight,
       (begPos.x + endPos.x) / 2,
       (begPos.y + endPos.y) / 2
     );
-    this.setContextFontSize();
+    this.setContextFont();
   }
 
   drawSideLine(begPos, endPos, weight = 0) {
@@ -211,6 +215,7 @@ class GraphBaseDrawingBoard extends React.Component {
   drawGraph() {
     this.drawVertices();
     this.drawEdges();
+    this.drawDatasOfVertices();
   }
 
   componentDidMount() {
