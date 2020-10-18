@@ -19,11 +19,55 @@ function getCellStringForHTML(item) {
   else return <>{item}</>;
 }
 
+function getColorizer(innerHTML) {
+  return (
+    <span key={v4()} className="changed-table-item">
+      {innerHTML}
+    </span>
+  );
+}
+
 function getColorizerDivIfChanged(item, previousItem, innerHTML) {
   if (previousItem !== null && item !== previousItem) {
-    return <span className="changed-table-item">{innerHTML}</span>;
+    return getColorizer(innerHTML);
   }
-  return <>{innerHTML}</>;
+  return <span key={v4()}>{innerHTML}</span>;
+}
+
+function getColorizerDivIfChangedForList(
+  list,
+  previousList,
+  withInclude = false
+) {
+  let colorizedListString = [];
+  for (let i = 0; i < list.length; ++i) {
+    if (withInclude) {
+      colorizedListString.push(
+        previousList !== null && !previousList.includes(list[i]) ? (
+          getColorizer(list[i])
+        ) : (
+          <span key={v4()}>{list[i]}</span>
+        )
+      );
+    } else {
+      colorizedListString.push(
+        getColorizerDivIfChanged(
+          list[i],
+          previousList !== null ? previousList[i] : null,
+          list[i]
+        )
+      );
+    }
+  }
+  let colorizedListStringAfterJoin = [];
+  for (let i = 0; i < colorizedListString.length; ++i) {
+    colorizedListStringAfterJoin.push(colorizedListString[i]);
+    if (i !== colorizedListString.length - 1) {
+      colorizedListStringAfterJoin.push(<span key={v4()}>{", "}</span>);
+    }
+  }
+
+  return <span key={v4()}>{colorizedListStringAfterJoin}</span>;
 }
 
 function buildAttributeCells(attr, vertices, previousVertices = null) {
@@ -161,27 +205,38 @@ function buildTOPOHead() {
     .concat([<th key={v4()}>Stack</th>]);
 }
 
-function buildTOPORowCells(currentStep) {
+function buildTOPORowCells(currentStep, previousStep) {
   return [
     React.createElement(
       "td",
       { key: v4() },
-      currentStep.topologicalOrder.join(", ")
+      getColorizerDivIfChangedForList(
+        currentStep.topologicalOrder,
+        previousStep ? previousStep.topologicalOrder : null,
+        true
+      )
     ),
   ]
     .concat([
       React.createElement(
         "td",
         { key: v4() },
-        currentStep.inDegrees.join(", ")
+        getColorizerDivIfChangedForList(
+          currentStep.inDegrees,
+          previousStep ? previousStep.inDegrees : null
+        )
       ),
     ])
     .concat([
-      React.createElement(
-        "td",
-        { key: v4() },
-        "<" + currentStep.stack.items.join(", ") + ">"
-      ),
+      React.createElement("td", { key: v4() }, [
+        <span key={v4()}>{"<"}</span>,
+        getColorizerDivIfChangedForList(
+          currentStep.stack.items,
+          previousStep ? previousStep.stack.items : null,
+          true
+        ),
+        <span key={v4()}>{">"}</span>,
+      ]),
     ]);
 }
 
@@ -191,19 +246,27 @@ function buildTOPOWithDFSHead() {
   ]);
 }
 
-function buildTOPOWithDFSRowCells(currentStep) {
+function buildTOPOWithDFSRowCells(currentStep, previousStep) {
   return [
     React.createElement(
       "td",
       { key: v4() },
-      currentStep.topologicalOrder.join(", ")
+      getColorizerDivIfChangedForList(
+        currentStep.topologicalOrder,
+        previousStep ? previousStep.topologicalOrder : null,
+        true
+      )
     ),
   ].concat([
-    React.createElement(
-      "td",
-      { key: v4() },
-      "<" + currentStep.stack.items.join(", ") + ">"
-    ),
+    React.createElement("td", { key: v4() }, [
+      <span key={v4()}>{"<"}</span>,
+      getColorizerDivIfChangedForList(
+        currentStep.stack.items,
+        previousStep ? previousStep.stack.items : null,
+        true
+      ),
+      <span key={v4()}>{">"}</span>,
+    ]),
   ]);
 }
 
