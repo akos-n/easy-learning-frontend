@@ -1,7 +1,6 @@
 import React from "react";
+import PopUp from "./utils/PopUp";
 import { v4 } from "uuid";
-
-import "./BasePopup.scss";
 
 class UsersGuidePopup extends React.Component {
   componentDidMount() {
@@ -152,19 +151,20 @@ class UsersGuidePopup extends React.Component {
 
   render() {
     return (
-      <div className={"popup"}>
-        <div className={"popup-inner"}>
-          <div className={"popup-inner-header"}>
+      <PopUp
+        headerChildren={
+          <>
             <h1>User's Guide</h1>
             <input
               type={"button"}
               value={"X"}
               onClick={this.props.closePopup}
             />
-          </div>
-          <div className={"popup-inner-body"}>{this.renderUsersGuide()}</div>
-        </div>
-      </div>
+          </>
+        }
+        bodyChildren={this.renderUsersGuide()}
+        handleClickOutside={this.props.closePopup}
+      />
     );
   }
 }

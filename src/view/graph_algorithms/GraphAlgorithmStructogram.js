@@ -1,6 +1,6 @@
 import React from "react";
+import PopUp from "./utils/PopUp";
 
-import "./BasePopup.scss";
 import "./GraphAlgorithmStructogram.scss";
 
 import BFS from "./resources/BFS.png";
@@ -89,23 +89,17 @@ class GraphAlgorithmStructogram extends React.Component {
 
   render() {
     return (
-      <div className={"popup"}>
-        <div className={"popup-inner"}>
-          <div className={"popup-inner-header"}>
-            <input
-              type={"button"}
-              value={"X"}
-              onClick={this.props.closePopup}
-            />
-          </div>
-          <div
-            className={"popup-inner-body"}
-            id="graph-algorithm-structogram-popup-inner-body"
-          >
+      <PopUp
+        headerChildren={
+          <input type={"button"} value={"X"} onClick={this.props.closePopup} />
+        }
+        bodyChildren={
+          <div id="graph-algorithm-structogram-popup-inner-body">
             {this.getImageForAlgorithmType()}
           </div>
-        </div>
-      </div>
+        }
+        handleClickOutside={this.props.closePopup}
+      />
     );
   }
 }
