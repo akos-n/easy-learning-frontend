@@ -30,7 +30,6 @@ class GraphContent extends React.Component {
   }
 
   toggleStuctogramPopup() {
-    console.log(this.state.showStuctogram);
     this.setState({
       showStuctogram: !this.state.showStuctogram,
     });

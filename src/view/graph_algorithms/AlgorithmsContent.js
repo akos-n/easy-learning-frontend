@@ -464,6 +464,8 @@ class AlgorithmsContent extends React.Component {
         this.graphName
       ).then((response) => {
         if (response.success) {
+          let saveInputTextField = document.getElementById("graph-name-save");
+          saveInputTextField.value = "";
           this.componentDidMount();
         } else {
           alert(response.err);
