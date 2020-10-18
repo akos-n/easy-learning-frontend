@@ -1,6 +1,7 @@
 import React from "react";
 import AlgorithmsContent from "./AlgorithmsContent";
 import UsersGuidePopup from "./UsersGuidePopup";
+import GraphAlgorithmStructogram from "./GraphAlgorithmStructogram";
 import GraphPlayAlgorithm from "./GraphPlayAlgorithm";
 import { Graph } from "./utils/Graph";
 import Utilities from "../../utils/Utilities";
@@ -18,12 +19,20 @@ class GraphContent extends React.Component {
       graph: null,
       playableContent: null,
       showUsersGuidePopup: false,
+      showStuctogram: false,
     };
   }
 
   toggleUsersGuidePopup() {
     this.setState({
       showUsersGuidePopup: !this.state.showUsersGuidePopup,
+    });
+  }
+
+  toggleStuctogramPopup() {
+    console.log(this.state.showStuctogram);
+    this.setState({
+      showStuctogram: !this.state.showStuctogram,
     });
   }
 
@@ -75,7 +84,6 @@ class GraphContent extends React.Component {
           j < playableContent.steps[i].sortedEdges.items.length;
           ++j
         ) {
-          console.log(playableContent.steps[i].sortedEdges.items[j]);
           playableContent.steps[i].sortedEdges.items[
             j
           ].fromVertex = this.savedVertices[
@@ -91,7 +99,6 @@ class GraphContent extends React.Component {
       }
       if (playableContent.steps[i].chosenEdges) {
         for (let j = 0; j < playableContent.steps[i].chosenEdges.length; ++j) {
-          console.log(playableContent.steps[i].chosenEdges[j]);
           playableContent.steps[i].chosenEdges[
             j
           ].fromVertex = this.savedVertices[
@@ -116,7 +123,6 @@ class GraphContent extends React.Component {
       }
       if (playableContent.steps[i].stack) {
         for (let j = 0; j < playableContent.steps[i].stack.items.length; ++j) {
-          console.log(playableContent.steps[i].stack.items[j]);
           playableContent.steps[i].stack.items[j] = this.savedVertices[
             playableContent.steps[i].stack.items[j]
           ].vertexNumber;
@@ -124,7 +130,6 @@ class GraphContent extends React.Component {
       }
       if (playableContent.steps[i].queue) {
         for (let j = 0; j < playableContent.steps[i].queue.items.length; ++j) {
-          console.log(playableContent.steps[i].queue.items[j]);
           playableContent.steps[i].queue.items[j] = this.savedVertices[
             playableContent.steps[i].queue.items[j]
           ].vertexNumber;
@@ -237,6 +242,12 @@ class GraphContent extends React.Component {
           <input
             type={"button"}
             id={"graph-content-back-button-to-create-graph"}
+            value={"Stuctogram"}
+            onClick={this.toggleStuctogramPopup.bind(this)}
+          />
+          <input
+            type={"button"}
+            id={"graph-content-back-button-to-create-graph"}
             value={"Back to create"}
             onClick={(e) => {
               this.handleBackToCreateGraph();
@@ -254,6 +265,12 @@ class GraphContent extends React.Component {
           handleNextStep={() => this.handleNextStep()}
           handlePrevStep={() => this.handlePrevStep()}
         />
+        {this.state.showStuctogram ? (
+          <GraphAlgorithmStructogram
+            algorithmType={this.state.playableContent.algorithmType}
+            closePopup={this.toggleStuctogramPopup.bind(this)}
+          />
+        ) : null}
       </>
     ) : (
       <>

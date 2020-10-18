@@ -1,4 +1,4 @@
-.users-guide-popup {
+.popup {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -7,9 +7,9 @@
   right: 0;
   bottom: 0;
   margin: auto;
-  background-color: rgba(0,0,0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.users-guide-popup-inner {
+.popup-inner {
   position: absolute;
   left: 25%;
   right: 25%;
@@ -17,13 +17,13 @@
   bottom: 25%;
   margin: auto;
   overflow: auto;
-  background-color: rgba(0,0,0, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   border: 3px solid black;
   border-radius: 10px;
 }
 
 @media only screen and (max-width: 768px) {
-  .users-guide-popup-inner {
+  .popup-inner {
     left: 5%;
     right: 5%;
     top: 5%;
@@ -31,7 +31,7 @@
   }
 }
 
-.users-guide-popup-inner-header {
+.popup-inner-header {
   background-color: rgb(0, 0, 0, 0.8);
   border: 3px solid black;
   border-radius: 10px;
@@ -39,20 +39,19 @@
   display: flex;
 }
 
-.users-guide-popup-inner-header h1 {
+.popup-inner-header h1 {
   padding: 20px;
   font-size: 2em;
   margin-top: 20px;
   color: #d3d3d3;
 }
 
-.users-guide-popup-inner-header input[type="button"]
-{
+.popup-inner-header input[type="button"] {
   position: absolute;
   top: 10px;
   right: 1%;
-  color: #F5F5F5;
-  background: #008B8B;
+  color: #f5f5f5;
+  background: #008b8b;
   font-size: 1.2em;
   text-align: center;
   width: 30px;
@@ -63,16 +62,15 @@
   margin-left: 20px;
 }
 
-.users-guide-popup-inner-header input[type="button"]:hover
-{
+.popup-inner-header input[type="button"]:hover {
   background: #808080;
 }
 
 .collapsible-button {
   display: block;
-  color: #F5F5F5;
+  color: #f5f5f5;
   opacity: 0.9;
-  background: #008B8B;
+  background: #008b8b;
   font-size: 18px;
   text-align: left;
   font-style: normal;
@@ -82,7 +80,8 @@
   top: 150px;
 }
 
-.active, .collapsible-button:hover {
+.active,
+.collapsible-button:hover {
   background-color: #808080;
 }
 

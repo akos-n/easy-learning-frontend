@@ -21,8 +21,6 @@ function getCellStringForHTML(item) {
 
 function getColorizerDivIfChanged(item, previousItem, innerHTML) {
   if (previousItem !== null && item !== previousItem) {
-    console.log(item);
-    console.log(previousItem);
     return <span className="changed-table-item">{innerHTML}</span>;
   }
   return <>{innerHTML}</>;
