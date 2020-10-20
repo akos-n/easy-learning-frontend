@@ -385,13 +385,23 @@ function buildQBBFHead(vertices) {
 }
 
 function buildQBBFRowCells(currentStep, previousStep = null) {
+  const currentVertexNumber =
+    currentStep.currentVertex < 0
+      ? "init"
+      : currentStep.vertices[currentStep.currentVertex].vertexNumber;
   return [
     React.createElement(
       "td",
       { key: v4() },
-      currentStep.currentVertex < 0
-        ? "init"
-        : currentStep.vertices[currentStep.currentVertex].vertexNumber
+      getColorizerSpanIfChanged(
+        currentVertexNumber,
+        previousStep
+          ? previousStep.currentVertex < 0
+            ? "init"
+            : previousStep.vertices[previousStep.currentVertex].vertexNumber
+          : null,
+        currentVertexNumber
+      )
     ),
   ]
     .concat(
@@ -402,11 +412,15 @@ function buildQBBFRowCells(currentStep, previousStep = null) {
       )
     )
     .concat([
-      React.createElement(
-        "td",
-        { key: v4() },
-        "<" + currentStep.queue.items.join(", ") + ">"
-      ),
+      React.createElement("td", { key: v4() }, [
+        <span key={v4()}>{"<"}</span>,
+        getColorizerSpanIfChangedForList(
+          currentStep.queue.items,
+          previousStep ? previousStep.queue.items : null,
+          true
+        ),
+        <span key={v4()}>{">"}</span>,
+      ]),
     ])
     .concat([React.createElement("td", { key: v4() }, " ")])
     .concat(
