@@ -344,13 +344,23 @@ function buildPrimHead(vertices) {
 }
 
 function buildPrimRowCells(currentStep, previousStep = null) {
+  const currentVertexNumber =
+    currentStep.currentVertex < 0
+      ? "init"
+      : currentStep.vertices[currentStep.currentVertex].vertexNumber;
   return [
     React.createElement(
       "td",
       { key: v4() },
-      currentStep.currentVertex < 0
-        ? "init"
-        : currentStep.vertices[currentStep.currentVertex].vertexNumber
+      getColorizerSpanIfChanged(
+        currentVertexNumber,
+        previousStep
+          ? previousStep.currentVertex < 0
+            ? "init"
+            : previousStep.vertices[previousStep.currentVertex].vertexNumber
+          : null,
+        currentVertexNumber
+      )
     ),
   ]
     .concat(
