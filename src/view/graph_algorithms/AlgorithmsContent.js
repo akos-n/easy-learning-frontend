@@ -479,6 +479,8 @@ class AlgorithmsContent extends React.Component {
     else {
       GraphService.getGraph(this.loadGraphName).then((result) => {
         if (result) {
+          this.deselectSelectedEdge();
+          this.deselectSelectedVertex();
           this.normalGraph = result.normalGraph;
           this.directedGraph = result.directedGraph;
           this.setState({
