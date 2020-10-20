@@ -452,6 +452,10 @@ function buildDijkstraHead(vertices) {
 }
 
 function buildDijkstraRowCells(currentStep, previousStep = null) {
+  const currentVertexNumber =
+    currentStep.currentVertex !== null
+      ? currentStep.vertices[currentStep.currentVertex].vertexNumber
+      : null;
   return [
     React.createElement(
       "td",
@@ -470,9 +474,15 @@ function buildDijkstraRowCells(currentStep, previousStep = null) {
       React.createElement(
         "td",
         { key: v4() },
-        currentStep.currentVertex !== null
-          ? currentStep.vertices[currentStep.currentVertex].vertexNumber
-          : null
+        getColorizerSpanIfChanged(
+          currentVertexNumber,
+          previousStep
+            ? previousStep.currentVertex !== null
+              ? previousStep.vertices[previousStep.currentVertex].vertexNumber
+              : ""
+            : null,
+          currentVertexNumber
+        )
       ),
     ])
     .concat([React.createElement("td", { key: v4() }, " ")])
