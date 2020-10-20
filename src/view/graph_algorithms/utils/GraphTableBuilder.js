@@ -37,7 +37,8 @@ function getColorizerSpanIfChanged(item, previousItem, innerHTML) {
 function getColorizerSpanIfChangedForList(
   list,
   previousList,
-  withInclude = false
+  withInclude = false,
+  joinString = ", "
 ) {
   let colorizedListString = [];
   for (let i = 0; i < list.length; ++i) {
@@ -63,7 +64,7 @@ function getColorizerSpanIfChangedForList(
   for (let i = 0; i < colorizedListString.length; ++i) {
     colorizedListStringAfterJoin.push(colorizedListString[i]);
     if (i !== colorizedListString.length - 1) {
-      colorizedListStringAfterJoin.push(<span key={v4()}>{", "}</span>);
+      colorizedListStringAfterJoin.push(<span key={v4()}>{joinString}</span>);
     }
   }
 
@@ -290,17 +291,37 @@ function buildKruskalHead() {
     .concat([<th key={v4()}>Chosen edges</th>]);
 }
 
-function buildKruskalRowCells(currentStep) {
+function getStringListFromEdgesList(step, listAttr) {
+  let stringList = [];
+  for (let edge of step[listAttr].hasOwnProperty("items")
+    ? step[listAttr].items
+    : step[listAttr]) {
+    stringList.push(
+      `{ (${edge.fromVertex}, ${edge.toVertex}); ${edge.weight} }`
+    );
+  }
+  return stringList;
+}
+
+function buildKruskalRowCells(currentStep, previousStep = null) {
   return [
     React.createElement(
       "td",
       { key: v4() },
       (() => {
-        let cellString = [];
-        for (let i = 0; i < currentStep.kruskalSets.length; ++i) {
-          cellString.push("| " + currentStep.kruskalSets[i].join(", ") + " |");
-        }
-        return cellString.join("\n");
+        const getStringListFromKruskalSets = (step) => {
+          let stringList = [];
+          for (let i = 0; i < step.kruskalSets.length; ++i) {
+            stringList.push("| " + step.kruskalSets[i].join(", ") + " |");
+          }
+          return stringList;
+        };
+        return getColorizerSpanIfChangedForList(
+          getStringListFromKruskalSets(currentStep),
+          previousStep ? getStringListFromKruskalSets(previousStep) : null,
+          true,
+          "\n"
+        );
       })()
     ),
   ]
@@ -309,13 +330,14 @@ function buildKruskalRowCells(currentStep) {
         "td",
         { key: v4() },
         (() => {
-          let sortedEdgesList = [];
-          for (let edge of currentStep.sortedEdges.items) {
-            sortedEdgesList.push(
-              `{ (${edge.fromVertex}, ${edge.toVertex}); ${edge.weight} }`
-            );
-          }
-          return sortedEdgesList.join("\n");
+          return getColorizerSpanIfChangedForList(
+            getStringListFromEdgesList(currentStep, "sortedEdges"),
+            previousStep
+              ? getStringListFromEdgesList(previousStep, "sortedEdges")
+              : null,
+            false,
+            "\n"
+          );
         })()
       ),
     ])
@@ -324,13 +346,14 @@ function buildKruskalRowCells(currentStep) {
         "td",
         { key: v4() },
         (() => {
-          let chosenEdgesList = [];
-          for (let edge of currentStep.chosenEdges) {
-            chosenEdgesList.push(
-              `{ (${edge.fromVertex}, ${edge.toVertex}); ${edge.weight} }`
-            );
-          }
-          return chosenEdgesList.join("\n");
+          return getColorizerSpanIfChangedForList(
+            getStringListFromEdgesList(currentStep, "chosenEdges"),
+            previousStep
+              ? getStringListFromEdgesList(previousStep, "chosenEdges")
+              : null,
+            true,
+            "\n"
+          );
         })()
       ),
     ]);
