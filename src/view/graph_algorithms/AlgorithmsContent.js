@@ -404,9 +404,7 @@ class AlgorithmsContent extends React.Component {
     if (this.state.algorithm === "") {
       alert("Please select an algorithm!");
     } else if (
-      ["bfs", "kruskal", "prim", "dijkstra", "qbbf"].includes(
-        this.state.algorithm
-      ) &&
+      ["bfs", "prim", "dijkstra", "qbbf"].includes(this.state.algorithm) &&
       this.state.indexOfSelectedVertex === -1
     ) {
       alert("This algorithm needs a starting vertex. Please select one!");
