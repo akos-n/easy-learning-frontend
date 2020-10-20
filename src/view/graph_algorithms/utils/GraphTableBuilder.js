@@ -27,14 +27,14 @@ function getColorizer(innerHTML) {
   );
 }
 
-function getColorizerDivIfChanged(item, previousItem, innerHTML) {
+function getColorizerSpanIfChanged(item, previousItem, innerHTML) {
   if (previousItem !== null && item !== previousItem) {
     return getColorizer(innerHTML);
   }
   return <span key={v4()}>{innerHTML}</span>;
 }
 
-function getColorizerDivIfChangedForList(
+function getColorizerSpanIfChangedForList(
   list,
   previousList,
   withInclude = false
@@ -51,7 +51,7 @@ function getColorizerDivIfChangedForList(
       );
     } else {
       colorizedListString.push(
-        getColorizerDivIfChanged(
+        getColorizerSpanIfChanged(
           list[i],
           previousList !== null ? previousList[i] : null,
           list[i]
@@ -92,7 +92,7 @@ function buildAttributeCells(attr, vertices, previousVertices = null) {
           {
             key: v4(),
           },
-          getColorizerDivIfChanged(
+          getColorizerSpanIfChanged(
             getCellStringForHTML(vertices[i][attr]).props.children,
             previousVertices
               ? getCellStringForHTML(previousVertices[i][attr]).props.children
@@ -115,13 +115,23 @@ function buildBFSHead(vertices) {
 }
 
 function buildBFSRowCells(currentStep, previousStep = null) {
+  const currentVertexNumber =
+    currentStep.currentVertex < 0
+      ? " "
+      : currentStep.vertices[currentStep.currentVertex].vertexNumber;
   return [
     React.createElement(
       "td",
       { key: v4() },
-      currentStep.currentVertex < 0
-        ? " "
-        : currentStep.vertices[currentStep.currentVertex].vertexNumber
+      getColorizerSpanIfChanged(
+        currentVertexNumber,
+        previousStep
+          ? previousStep.currentVertex < 0
+            ? " "
+            : previousStep.vertices[previousStep.currentVertex].vertexNumber
+          : null,
+        currentVertexNumber
+      )
     ),
   ]
     .concat(
@@ -132,11 +142,15 @@ function buildBFSRowCells(currentStep, previousStep = null) {
       )
     )
     .concat([
-      React.createElement(
-        "td",
-        { key: v4() },
-        "<" + currentStep.queue.items.join(", ") + ">"
-      ),
+      React.createElement("td", { key: v4() }, [
+        <span key={v4()}>{"<"}</span>,
+        getColorizerSpanIfChangedForList(
+          currentStep.queue.items,
+          previousStep ? previousStep.queue.items : null,
+          true
+        ),
+        <span key={v4()}>{">"}</span>,
+      ]),
     ])
     .concat([React.createElement("td", { key: v4() }, " ")])
     .concat(
@@ -158,7 +172,7 @@ function buildDFSAttributeCells(vertices, previousVertices = null) {
           key: v4(),
         },
         <>
-          {getColorizerDivIfChanged(
+          {getColorizerSpanIfChanged(
             vertices[i]["discoveryTime"],
             previousVertices ? previousVertices[i]["discoveryTime"] : null,
             getCellStringForHTML(
@@ -168,7 +182,7 @@ function buildDFSAttributeCells(vertices, previousVertices = null) {
             )
           )}
           /
-          {getColorizerDivIfChanged(
+          {getColorizerSpanIfChanged(
             vertices[i]["finishingTime"],
             previousVertices ? previousVertices[i]["finishingTime"] : null,
             getCellStringForHTML(
@@ -210,7 +224,7 @@ function buildTOPORowCells(currentStep, previousStep) {
     React.createElement(
       "td",
       { key: v4() },
-      getColorizerDivIfChangedForList(
+      getColorizerSpanIfChangedForList(
         currentStep.topologicalOrder,
         previousStep ? previousStep.topologicalOrder : null,
         true
@@ -221,7 +235,7 @@ function buildTOPORowCells(currentStep, previousStep) {
       React.createElement(
         "td",
         { key: v4() },
-        getColorizerDivIfChangedForList(
+        getColorizerSpanIfChangedForList(
           currentStep.inDegrees,
           previousStep ? previousStep.inDegrees : null
         )
@@ -230,7 +244,7 @@ function buildTOPORowCells(currentStep, previousStep) {
     .concat([
       React.createElement("td", { key: v4() }, [
         <span key={v4()}>{"<"}</span>,
-        getColorizerDivIfChangedForList(
+        getColorizerSpanIfChangedForList(
           currentStep.stack.items,
           previousStep ? previousStep.stack.items : null,
           true
@@ -251,7 +265,7 @@ function buildTOPOWithDFSRowCells(currentStep, previousStep) {
     React.createElement(
       "td",
       { key: v4() },
-      getColorizerDivIfChangedForList(
+      getColorizerSpanIfChangedForList(
         currentStep.topologicalOrder,
         previousStep ? previousStep.topologicalOrder : null,
         true
@@ -260,7 +274,7 @@ function buildTOPOWithDFSRowCells(currentStep, previousStep) {
   ].concat([
     React.createElement("td", { key: v4() }, [
       <span key={v4()}>{"<"}</span>,
-      getColorizerDivIfChangedForList(
+      getColorizerSpanIfChangedForList(
         currentStep.stack.items,
         previousStep ? previousStep.stack.items : null,
         true
@@ -396,7 +410,7 @@ function buildQBBFRowCells(currentStep, previousStep = null) {
       React.createElement(
         "td",
         { key: v4() },
-        getColorizerDivIfChanged(
+        getColorizerSpanIfChanged(
           currentStep.round,
           previousStep ? previousStep.round : null,
           currentStep.round
@@ -471,7 +485,7 @@ function buildFWRow(currentStep, indexOfRow, previousStep = null) {
   for (let i = 0; i < currentStep.vertices.length; ++i) {
     distanceRowCells.push(
       <td key={v4()}>
-        {getColorizerDivIfChanged(
+        {getColorizerSpanIfChanged(
           getCellStringForHTML(currentStep.distanceMatrix[indexOfRow][i]).props
             .children,
           previousStep
@@ -484,7 +498,7 @@ function buildFWRow(currentStep, indexOfRow, previousStep = null) {
     );
     parentRowCells.push(
       <td key={v4()}>
-        {getColorizerDivIfChanged(
+        {getColorizerSpanIfChanged(
           getCellStringForHTML(currentStep.parentMatrix[indexOfRow][i]).props
             .children,
           previousStep
@@ -577,7 +591,7 @@ function buildFWIndexTableHead() {
 function buildFWIndexTableRowCells(currentStep, previousStep = null) {
   return [
     <td key={v4()}>
-      {getColorizerDivIfChanged(
+      {getColorizerSpanIfChanged(
         currentStep.k !== null
           ? currentStep.vertices[currentStep.k].vertexNumber
           : " ",
@@ -592,7 +606,7 @@ function buildFWIndexTableRowCells(currentStep, previousStep = null) {
   ]
     .concat([
       <td key={v4()}>
-        {getColorizerDivIfChanged(
+        {getColorizerSpanIfChanged(
           currentStep.i !== null
             ? currentStep.vertices[currentStep.i].vertexNumber
             : " ",
@@ -607,7 +621,7 @@ function buildFWIndexTableRowCells(currentStep, previousStep = null) {
     ])
     .concat([
       <td key={v4()}>
-        {getColorizerDivIfChanged(
+        {getColorizerSpanIfChanged(
           currentStep.j !== null
             ? currentStep.vertices[currentStep.j].vertexNumber
             : " ",
