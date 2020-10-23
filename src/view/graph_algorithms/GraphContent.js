@@ -241,7 +241,7 @@ class GraphContent extends React.Component {
           <input
             type={"button"}
             id={"graph-content-back-button-to-create-graph"}
-            value={"Stuctogram"}
+            value={"Structogram"}
             onClick={this.toggleStuctogramPopup.bind(this)}
           />
           <input
