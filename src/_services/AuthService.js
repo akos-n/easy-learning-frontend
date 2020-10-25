@@ -1,4 +1,5 @@
 import history from "./HistoryService";
+import getServerUrl from "./ServiceUtils";
 
 class AuthUser {
   constructor(id, username) {
@@ -22,22 +23,18 @@ function logout() {
 
 async function login(username, password) {
   if (password === "" || username === "") return;
-  let response = await fetch(
-    "https://easy-learning-server.herokuapp.com/users/login/",
-    {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin":
-          "https://easy-learning-server.herokuapp.com/",
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    }
-  );
+  let response = await fetch(getServerUrl() + "users/login/", {
+    method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": getServerUrl(),
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password,
+    }),
+  });
   let res = JSON.parse(await response.json());
   if (res.success) {
     setCurrentUser(new AuthUser(res.id, res.username));
@@ -48,21 +45,17 @@ async function login(username, password) {
 }
 
 async function sendDatas(email) {
-  let response = await fetch(
-    "https://easy-learning-server.herokuapp.com/users/forgotten-datas/",
-    {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin":
-          "https://easy-learning-server.herokuapp.com/",
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-      }),
-    }
-  );
+  let response = await fetch(getServerUrl() + "users/forgotten-datas/", {
+    method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": getServerUrl(),
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+    }),
+  });
   let res = JSON.parse(await response.json());
   if (res.success) {
     return true;
@@ -73,23 +66,19 @@ async function sendDatas(email) {
 }
 
 async function register(username, email, password) {
-  let response = await fetch(
-    "https://easy-learning-server.herokuapp.com/users/register/",
-    {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin":
-          "https://easy-learning-server.herokuapp.com/",
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        email: email,
-        password: password,
-      }),
-    }
-  );
+  let response = await fetch(getServerUrl() + "users/register/", {
+    method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": getServerUrl(),
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+      email: email,
+      password: password,
+    }),
+  });
   let res = JSON.parse(await response.json());
   if (res.success) {
     return true;
@@ -100,24 +89,20 @@ async function register(username, email, password) {
 }
 async function updatePassword(oldPassword, newPassword) {
   const currentUser = getCurrentUser();
-  let response = await fetch(
-    "https://easy-learning-server.herokuapp.com/users/update-password/",
-    {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin":
-          "https://easy-learning-server.herokuapp.com/",
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: currentUser.id,
-        username: currentUser.username,
-        oldPassword: oldPassword,
-        newPassword: newPassword,
-      }),
-    }
-  );
+  let response = await fetch(getServerUrl() + "users/update-password/", {
+    method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": getServerUrl(),
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId: currentUser.id,
+      username: currentUser.username,
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+    }),
+  });
   const res = JSON.parse(await response.json());
   if (res.success) {
     return true;
