@@ -4,6 +4,7 @@ import getServerUrl from "./ServiceUtils";
 class AuthUser {
   constructor(id, username) {
     this.id = id;
+
     this.username = username;
   }
 }
