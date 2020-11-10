@@ -6,7 +6,7 @@ import PageNotFound from "../main/PageNotFound";
 
 import "./UpdatePassword.scss";
 
-class RegisterContent extends React.Component {
+class UpdatePasswordContent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -134,4 +134,4 @@ class RegisterContent extends React.Component {
   }
 }
 
-export { RegisterContent as default };
+export { UpdatePasswordContent as default };
