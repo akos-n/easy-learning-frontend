@@ -44,7 +44,7 @@ class UsersGuidePopup extends React.Component {
         "div",
         { key: v4() },
         this.getNewCollapsible(
-          "SET GRAPH'S DIRECTIVITY",
+          "SET GRAPH'S DIRECTION",
           "Click on the switch on the top of the run algorithm dialog. (The dialog is below or on the right side of the drawing board.)"
         )
       )
